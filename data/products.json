@@ -66,27 +66,20 @@
       "tab_id": "nhay-day"
     },
     {
-      "id": "prod-1787896635633",
-      "title": "Thảm nhảy dây SPORTY YGW43",
-      "image": "https://down-vn.img.susercontent.com/file/5d1b118018339fb1dd6206e15bfe926f.webp",
-      "shopee_url": "https://s.shopee.vn/50YYz330Ku",
-      "category": "day-nhay-phu-kien"
-    },
-    {
       "id": "prod-1787897037690",
       "title": "Bình nước nhựa Tritan",
+      "tab_id": "nhay-day",
+      "category": "day-nhay-phu-kien",
       "image": "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mnmmnbhvtse8a0.webp",
-      "shopee_url": "https://s.shopee.vn/7VFty9U36n",
-      "category": "phu-kien-bo-tro",
-      "tab_id": "nhay-day"
+      "shopee_url": "https://s.shopee.vn/7VFty9U36n"
     },
     {
       "id": "prod-1787897077351",
       "title": "Cân sức khỏe điện tử iScale SE",
+      "tab_id": "nhay-day",
+      "category": "day-nhay-phu-kien",
       "image": "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mmhm4l34fsw255.webp",
-      "shopee_url": "https://s.shopee.vn/AAGf983zVA",
-      "category": "phu-kien-bo-tro",
-      "tab_id": "nhay-day"
+      "shopee_url": "https://s.shopee.vn/AAGf983zVA"
     }
   ]
 }
