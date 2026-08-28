@@ -415,6 +415,15 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
+// Register Service Worker for PWA (Standalone App Mode)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch((err) => {
+      console.info('SW registration skipped:', err);
+    });
+  });
+}
+
 // Start application when DOM is ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initApp);

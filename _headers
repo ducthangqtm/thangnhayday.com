@@ -26,6 +26,9 @@
 /*.js
   Cache-Control: public, max-age=86400, must-revalidate
 
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
+
 /data/*
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=0, must-revalidate
