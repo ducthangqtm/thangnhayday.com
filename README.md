@@ -42,11 +42,13 @@ thangnhayday.com/
 │   └── qr-donate.jpg       # Mã MoMo VietQR ủng hộ cafe
 ├── .gitignore              # Danh sách file loại trừ khỏi Git
 ├── _headers                # Tối ưu Cache-Control & Security Headers cho Cloudflare
+├── 404.html                # Trang thông báo lỗi 404 tùy chỉnh thể thao
 ├── app.js                  # Logic hiển thị sản phẩm động, tabs, modal donate & share
 ├── apple-touch-icon.png    # Icon ứng dụng trên iOS / Android (180x180)
 ├── favicon.ico             # Biểu tượng tab trình duyệt
 ├── favicon.png             # Icon chuẩn Google Search (192x192)
 ├── index.html              # Trang chủ Biolink chính
+├── manifest.json           # Cấu hình PWA (Add to Home Screen)
 ├── README.md               # Tài liệu giới thiệu dự án
 ├── robots.txt              # Chỉ dẫn bot tìm kiếm & bảo vệ /admin/
 ├── sitemap.xml             # Bản đồ trang web cho Google Search

@@ -1,0 +1,23 @@
+{
+  "name": "Thắng Nhảy Dây | Đồ Tập & Bio Link",
+  "short_name": "Thắng Nhảy Dây",
+  "description": "Kênh chính thức của Thắng Nhảy Dây. Chia sẻ hành trình 100 ngày nhảy dây giảm mỡ & đồ tập tại nhà chất lượng.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0e14",
+  "theme_color": "#0a0e14",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
