@@ -1,4 +1,10 @@
 {
+  "categories": [
+    {
+      "id": "day-nhay-phu-kien",
+      "name": "DÂY NHẢY VÀ PHỤ KIỆN"
+    }
+  ],
   "items": [
     {
       "id": "prod-1787896635633",
@@ -12,28 +18,28 @@
       "title": "Dây nhảy tốc độ TOPBODY EFFORT",
       "image": "images/uploads/day-nhay-beaded.jpg",
       "shopee_url": "https://shopee.vn",
-      "category": "beaded"
+      "category": "day-nhay-phu-kien"
     },
     {
       "id": "day-nhay-speed",
       "title": "Dây Nhảy Thể Lực Đếm Số",
       "image": "images/uploads/day-nhay-speed.jpg",
       "shopee_url": "https://shopee.vn",
-      "category": "speed"
+      "category": "day-nhay-phu-kien"
     },
     {
       "id": "day-nhay-weighted",
       "title": "Đai bảo vệ vòng 1 JUSTFIT",
       "image": "images/uploads/day-nhay-weighted.jpg",
       "shopee_url": "https://shopee.vn",
-      "category": "weighted"
+      "category": "day-nhay-phu-kien"
     },
     {
       "id": "tham-nhay",
       "title": "Thảm nhảy dây SPORTY YGW43",
       "image": "images/uploads/tham-nhay.jpg",
       "shopee_url": "https://shopee.vn",
-      "category": "mat"
+      "category": "day-nhay-phu-kien"
     }
   ]
 }

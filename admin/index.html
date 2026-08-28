@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trang Quản Trị Sản Phẩm | Thắng Nhảy Dây</title>
+  <title>Trang Quản Trị Sản Phẩm & Nhóm | Thắng Nhảy Dây</title>
   <link rel="icon" type="image/jpeg" href="../images/avatar.jpg">
   
   <!-- Font Roboto & FontAwesome Icons -->
@@ -121,11 +121,46 @@
       max-width: 900px;
       width: 100%;
       margin: 0 auto;
-      padding: 24px 16px 60px;
+      padding: 20px 16px 80px;
       flex-grow: 1;
     }
 
-    /* Auth Screen (Login with GitHub Token) */
+    /* Tabs Navigation */
+    .admin-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      color: var(--text-sub);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .tab-btn.active {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+    }
+
+    /* Auth Card */
     .auth-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -196,10 +231,6 @@
       transform: translateY(-1px);
     }
 
-    .btn-primary:active {
-      transform: scale(0.98);
-    }
-
     .token-guide {
       font-size: 0.78rem;
       color: var(--text-sub);
@@ -217,28 +248,28 @@
       text-decoration: none;
     }
 
-    /* Dashboard UI */
+    /* Dashboard Header */
     .dashboard-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       flex-wrap: wrap;
       gap: 12px;
     }
 
     .section-title {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 700;
     }
 
-    .btn-add-product {
-      padding: 10px 16px;
+    .btn-add {
+      padding: 9px 16px;
       background: var(--accent-emerald);
       color: #fff;
       border: none;
       border-radius: 10px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
@@ -247,31 +278,31 @@
       transition: all 0.2s;
     }
 
-    .btn-add-product:hover {
+    .btn-add:hover {
       filter: brightness(1.1);
       transform: translateY(-1px);
     }
 
-    /* Products List */
-    .products-list {
+    /* Items List */
+    .items-list {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
-    .product-item {
+    .data-item {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 14px 16px;
+      border-radius: 14px;
+      padding: 12px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 14px;
       transition: border-color 0.2s;
     }
 
-    .product-item:hover {
+    .data-item:hover {
       border-color: rgba(245, 158, 11, 0.4);
     }
 
@@ -284,8 +315,8 @@
     }
 
     .item-thumb {
-      width: 60px;
-      height: 60px;
+      width: 54px;
+      height: 54px;
       border-radius: 10px;
       object-fit: cover;
       background: #000;
@@ -296,12 +327,12 @@
     .item-details {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
       overflow: hidden;
     }
 
     .item-name {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 600;
       color: #fff;
       white-space: nowrap;
@@ -309,8 +340,18 @@
       text-overflow: ellipsis;
     }
 
+    .item-badge-tag {
+      font-size: 0.72rem;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-orange);
+      padding: 1px 6px;
+      border-radius: 6px;
+      display: inline-block;
+      width: fit-content;
+    }
+
     .item-link {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-sub);
       white-space: nowrap;
       overflow: hidden;
@@ -333,8 +374,8 @@
     }
 
     .btn-action {
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       border-radius: 8px;
       border: 1px solid var(--border-color);
       background: rgba(255, 255, 255, 0.05);
@@ -356,7 +397,7 @@
       color: #f87171;
     }
 
-    /* Modal Edit / Add Product */
+    /* Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -391,7 +432,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .modal-title {
@@ -410,20 +451,20 @@
     }
 
     .form-group {
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .form-label {
       display: block;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       font-weight: 500;
       color: var(--text-sub);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
     .preview-box {
       width: 100%;
-      height: 140px;
+      height: 120px;
       background: #000;
       border: 1px dashed var(--border-color);
       border-radius: 10px;
@@ -520,13 +561,13 @@
   <!-- Main Container -->
   <main class="admin-container">
     
-    <!-- 1. AUTH SCREEN (Nhập token 1 lần duy nhất) -->
+    <!-- 1. AUTH SCREEN -->
     <div id="auth-screen" class="auth-card">
       <div class="auth-icon">
         <i class="fa-solid fa-shield-halved"></i>
       </div>
       <h2 class="auth-title">Đăng Nhập Quản Trị</h2>
-      <p class="auth-desc">Nhập <strong>Mã Token GitHub</strong> của bạn để có quyền thêm/sửa sản phẩm và xuất bản trực tiếp lên website.</p>
+      <p class="auth-desc">Nhập <strong>Mã Token GitHub</strong> của bạn để có quyền thêm/sửa sản phẩm &amp; nhóm danh mục trực tiếp.</p>
       
       <input type="password" id="gh-token" class="input-field" placeholder="Dán mã Token (ghp_... hoặc github_pat_...)" autocomplete="off">
       <button type="button" class="btn-primary" onclick="loginWithToken()">
@@ -537,7 +578,7 @@
       <div class="token-guide">
         💡 <strong>Cách lấy mã Token (chỉ làm 1 lần):</strong><br>
         1. Vào <a href="https://github.com/settings/tokens/new?scopes=repo&description=ThangNhayDayAdmin" target="_blank">Tạo GitHub Token Nhanh</a><br>
-        2. Chọn thời hạn (VD: 90 days hoặc No expiration)<br>
+        2. Chọn thời hạn: <strong>No expiration</strong> (vĩnh viễn)<br>
         3. Tích chọn quyền <strong>repo</strong> ➔ Bấm <strong>Generate token</strong><br>
         4. Copy mã token và dán vào ô trên là xong!
       </div>
@@ -545,36 +586,70 @@
 
     <!-- 2. DASHBOARD SCREEN -->
     <div id="dashboard-screen" style="display: none;">
-      <div class="dashboard-header">
-        <div>
-          <h1 class="section-title">Danh Sách Sản Phẩm Dây Nhảy</h1>
-          <p style="font-size: 0.85rem; color: var(--text-sub); margin-top: 4px;">Dán link ảnh online &amp; link Shopee để cập nhật tức thì.</p>
-        </div>
-        <button type="button" class="btn-add-product" onclick="openAddModal()">
-          <i class="fa-solid fa-plus"></i>
-          <span>Thêm Sản Phẩm Mới</span>
+      
+      <!-- Tab Navigation -->
+      <div class="admin-tabs">
+        <button type="button" class="tab-btn active" id="tab-btn-products" onclick="switchTab('products')">
+          <i class="fa-solid fa-box-open"></i>
+          <span>Quản Lý Sản Phẩm</span>
+        </button>
+        <button type="button" class="tab-btn" id="tab-btn-categories" onclick="switchTab('categories')">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>Quản Lý Nhóm / Groups</span>
         </button>
       </div>
 
-      <!-- Danh sách sản phẩm -->
-      <div id="products-list-container" class="products-list">
-        <!-- Render bằng JS -->
+      <!-- TAB 1: SẢN PHẨM -->
+      <div id="tab-content-products">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="section-title">Danh Sách Sản Phẩm</h1>
+            <p style="font-size: 0.82rem; color: var(--text-sub); margin-top: 3px;">Dán link ảnh online &amp; link Shopee để cập nhật tức thì.</p>
+          </div>
+          <button type="button" class="btn-add" onclick="openAddProductModal()">
+            <i class="fa-solid fa-plus"></i>
+            <span>Thêm Sản Phẩm Mới</span>
+          </button>
+        </div>
+
+        <div id="products-list-container" class="items-list">
+          <!-- Render bằng JS -->
+        </div>
       </div>
+
+      <!-- TAB 2: NHÓM / CATEGORIES -->
+      <div id="tab-content-categories" style="display: none;">
+        <div class="dashboard-header">
+          <div>
+            <h1 class="section-title">Danh Sách Nhóm / Tiêu Đề Mục</h1>
+            <p style="font-size: 0.82rem; color: var(--text-sub); margin-top: 3px;">Tạo hoặc sửa tiêu đề nhóm (VD: | DÂY NHẢY VÀ PHỤ KIỆN, | TRANG PHỤC TẬP...)</p>
+          </div>
+          <button type="button" class="btn-add" onclick="openAddCategoryModal()">
+            <i class="fa-solid fa-folder-plus"></i>
+            <span>Thêm Nhóm Mới</span>
+          </button>
+        </div>
+
+        <div id="categories-list-container" class="items-list">
+          <!-- Render bằng JS -->
+        </div>
+      </div>
+
     </div>
 
   </main>
 
-  <!-- 3. MODAL THÊM / SỬA SẢN PHẨM -->
-  <div id="product-modal" class="modal-overlay" onclick="if(event.target === this) closeModal();">
+  <!-- 3. MODAL SẢN PHẨM -->
+  <div id="product-modal" class="modal-overlay" onclick="if(event.target === this) closeProductModal();">
     <div class="modal-box">
       <div class="modal-head">
-        <h3 id="modal-heading" class="modal-title">Thêm Sản Phẩm</h3>
-        <button type="button" class="modal-close" onclick="closeModal()">
+        <h3 id="product-modal-heading" class="modal-title">Thêm Sản Phẩm</h3>
+        <button type="button" class="modal-close" onclick="closeProductModal()">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <input type="hidden" id="edit-index" value="-1">
+      <input type="hidden" id="edit-prod-index" value="-1">
 
       <div class="form-group">
         <label class="form-label">Tên sản phẩm (*)</label>
@@ -582,7 +657,14 @@
       </div>
 
       <div class="form-group">
-        <label class="form-label">Link ảnh sản phẩm (*) <span style="font-size: 0.75rem; color: #f59e0b;">(Dán URL ảnh Shopee/Online)</span></label>
+        <label class="form-label">Nhóm / Danh mục (*)</label>
+        <select id="prod-category-select" class="input-field">
+          <!-- Render dynamically -->
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Link ảnh sản phẩm (*) <span style="font-size: 0.75rem; color: #f59e0b;">(Dán link ảnh Shopee/Online)</span></label>
         <input type="text" id="prod-image" class="input-field" placeholder="https://... hoặc images/uploads/..." oninput="updateImagePreview(this.value)">
         <div class="preview-box">
           <img id="image-preview" src="" alt="Xem trước ảnh" class="preview-img" style="display: none;">
@@ -592,28 +674,41 @@
 
       <div class="form-group">
         <label class="form-label">Link Mua Ngay Shopee / Tiếp thị (*)</label>
-        <input type="text" id="prod-url" class="input-field" placeholder="https://shopee.vn/..." required>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Phân loại</label>
-        <select id="prod-category" class="input-field">
-          <option value="beaded">Dây hạt Beaded</option>
-          <option value="speed">Dây tốc độ cáp thép</option>
-          <option value="weighted">Dây nặng Weighted</option>
-          <option value="mat">Thảm nhảy dây</option>
-          <option value="other">Phụ kiện khác</option>
-        </select>
+        <input type="text" id="prod-url" class="input-field" placeholder="https://s.shopee.vn/..." required>
       </div>
 
       <button type="button" class="btn-primary" onclick="saveProductForm()">
         <i class="fa-solid fa-check"></i>
-        <span>Xác Nhận</span>
+        <span>Xác Nhận Sản Phẩm</span>
       </button>
     </div>
   </div>
 
-  <!-- 4. FLOATING SAVE BAR -->
+  <!-- 4. MODAL NHÓM / CATEGORY -->
+  <div id="category-modal" class="modal-overlay" onclick="if(event.target === this) closeCategoryModal();">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 id="category-modal-heading" class="modal-title">Thêm Nhóm Mới</h3>
+        <button type="button" class="modal-close" onclick="closeCategoryModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <input type="hidden" id="edit-cat-index" value="-1">
+
+      <div class="form-group">
+        <label class="form-label">Tên Nhóm Hiển Thị (*)</label>
+        <input type="text" id="cat-name" class="input-field" placeholder="VD: DÂY NHẢY VÀ PHỤ KIỆN hoặc ĐỒ TẬP GYM" required>
+      </div>
+
+      <button type="button" class="btn-primary" onclick="saveCategoryForm()">
+        <i class="fa-solid fa-check"></i>
+        <span>Xác Nhận Nhóm</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 5. FLOATING SAVE BAR -->
   <div id="save-bar" class="save-bar" style="display: none;">
     <span style="font-size: 0.85rem; color: #cbd5e1;">Có thay đổi chưa xuất bản</span>
     <button type="button" class="btn-save-publish" onclick="publishChanges()">
@@ -631,9 +726,11 @@
     const FILE_PATH = 'data/products.json';
     const BRANCH = 'main';
 
+    let currentCategories = [];
     let currentProducts = [];
     let originalFileSha = '';
     let hasUnsavedChanges = false;
+    let currentTab = 'products';
 
     // Khởi động
     document.addEventListener('DOMContentLoaded', () => {
@@ -665,11 +762,19 @@
       document.getElementById('dashboard-screen').style.display = 'block';
       document.getElementById('btn-logout').style.display = 'block';
       
-      await loadProductsFromGitHub(token);
+      await loadDataFromGitHub(token);
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.getElementById('tab-btn-products').classList.toggle('active', tab === 'products');
+      document.getElementById('tab-btn-categories').classList.toggle('active', tab === 'categories');
+      document.getElementById('tab-content-products').style.display = tab === 'products' ? 'block' : 'none';
+      document.getElementById('tab-content-categories').style.display = tab === 'categories' ? 'block' : 'none';
     }
 
     // Tải dữ liệu từ GitHub
-    async function loadProductsFromGitHub(token) {
+    async function loadDataFromGitHub(token) {
       showToast('Đang tải dữ liệu từ GitHub...');
       try {
         const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}?ref=${BRANCH}&t=${Date.now()}`;
@@ -692,12 +797,19 @@
         const data = await res.json();
         originalFileSha = data.sha;
         
-        // Giải mã base64 UTF-8
+        // Giải mã UTF-8
         const contentStr = decodeURIComponent(escape(atob(data.content)));
         const json = JSON.parse(contentStr);
+        
+        currentCategories = Array.isArray(json.categories) && json.categories.length > 0 
+          ? json.categories 
+          : [{ id: "day-nhay-phu-kien", name: "DÂY NHẢY VÀ PHỤ KIỆN" }];
+          
         currentProducts = json.items || [];
 
         renderProductsList();
+        renderCategoriesList();
+        populateCategorySelect();
         showToast('✓ Đã tải dữ liệu thành công!');
       } catch (err) {
         console.error(err);
@@ -705,7 +817,18 @@
       }
     }
 
-    // Render danh sách
+    // Populate category select in modal
+    function populateCategorySelect(selectedId) {
+      const select = document.getElementById('prod-category-select');
+      if (!select) return;
+      select.innerHTML = currentCategories.map(cat => `
+        <option value="${escapeHtml(cat.id)}" ${cat.id === selectedId ? 'selected' : ''}>
+          ${escapeHtml(cat.name)}
+        </option>
+      `).join('');
+    }
+
+    // Render danh sách sản phẩm
     function renderProductsList() {
       const container = document.getElementById('products-list-container');
       if (!container) return;
@@ -717,28 +840,32 @@
 
       container.innerHTML = currentProducts.map((p, index) => {
         const imgSrc = p.image || '../images/uploads/day-nhay-beaded.jpg';
+        const catObj = currentCategories.find(c => c.id === p.category);
+        const catName = catObj ? catObj.name : 'Chưa phân nhóm';
+
         return `
-          <div class="product-item">
+          <div class="data-item">
             <div class="item-left">
               <img src="${escapeHtml(imgSrc)}" class="item-thumb" referrerpolicy="no-referrer" onerror="this.src='../images/uploads/day-nhay-beaded.jpg'">
               <div class="item-details">
                 <div class="item-name">${escapeHtml(p.title || 'Chưa đặt tên')}</div>
+                <span class="item-badge-tag">${escapeHtml(catName)}</span>
                 <a href="${escapeHtml(p.shopee_url || '#')}" target="_blank" class="item-link" title="${escapeHtml(p.shopee_url)}">
                   <i class="fa-solid fa-link"></i> ${escapeHtml(p.shopee_url || 'Chưa có link Shopee')}
                 </a>
               </div>
             </div>
             <div class="item-actions">
-              <button type="button" class="btn-action" onclick="moveItem(${index}, -1)" title="Chuyển lên trên" ${index === 0 ? 'disabled style="opacity:0.3;"' : ''}>
+              <button type="button" class="btn-action" onclick="moveProduct(${index}, -1)" title="Chuyển lên" ${index === 0 ? 'disabled style="opacity:0.3;"' : ''}>
                 <i class="fa-solid fa-arrow-up"></i>
               </button>
-              <button type="button" class="btn-action" onclick="moveItem(${index}, 1)" title="Chuyển xuống dưới" ${index === currentProducts.length - 1 ? 'disabled style="opacity:0.3;"' : ''}>
+              <button type="button" class="btn-action" onclick="moveProduct(${index}, 1)" title="Chuyển xuống" ${index === currentProducts.length - 1 ? 'disabled style="opacity:0.3;"' : ''}>
                 <i class="fa-solid fa-arrow-down"></i>
               </button>
-              <button type="button" class="btn-action" onclick="openEditModal(${index})" title="Chỉnh sửa">
+              <button type="button" class="btn-action" onclick="openEditProductModal(${index})" title="Chỉnh sửa">
                 <i class="fa-solid fa-pen-to-square"></i>
               </button>
-              <button type="button" class="btn-action delete" onclick="deleteItem(${index})" title="Xóa">
+              <button type="button" class="btn-action delete" onclick="deleteProduct(${index})" title="Xóa">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </div>
@@ -747,32 +874,74 @@
       }).join('');
     }
 
-    // Modal controls
-    function openAddModal() {
-      document.getElementById('modal-heading').textContent = 'Thêm Sản Phẩm Mới';
-      document.getElementById('edit-index').value = '-1';
+    // Render danh sách Categories / Groups
+    function renderCategoriesList() {
+      const container = document.getElementById('categories-list-container');
+      if (!container) return;
+
+      if (currentCategories.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: var(--text-sub); padding: 30px;">Chưa có nhóm nào. Hãy bấm Thêm Nhóm Mới.</p>';
+        return;
+      }
+
+      container.innerHTML = currentCategories.map((cat, index) => {
+        const prodCount = currentProducts.filter(p => p.category === cat.id).length;
+        return `
+          <div class="data-item">
+            <div class="item-left">
+              <div style="font-size: 1.4rem; color: var(--accent-orange); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(245, 158, 11, 0.1); border-radius: 10px;">
+                <i class="fa-solid fa-folder"></i>
+              </div>
+              <div class="item-details">
+                <div class="item-name" style="font-size: 1rem; font-weight: 700; color: var(--accent-orange);">| ${escapeHtml(cat.name)}</div>
+                <span style="font-size: 0.8rem; color: var(--text-sub);">${prodCount} sản phẩm trong nhóm này</span>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button type="button" class="btn-action" onclick="moveCategory(${index}, -1)" title="Chuyển lên" ${index === 0 ? 'disabled style="opacity:0.3;"' : ''}>
+                <i class="fa-solid fa-arrow-up"></i>
+              </button>
+              <button type="button" class="btn-action" onclick="moveCategory(${index}, 1)" title="Chuyển xuống" ${index === currentCategories.length - 1 ? 'disabled style="opacity:0.3;"' : ''}>
+                <i class="fa-solid fa-arrow-down"></i>
+              </button>
+              <button type="button" class="btn-action" onclick="openEditCategoryModal(${index})" title="Đổi tên nhóm">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button type="button" class="btn-action delete" onclick="deleteCategory(${index})" title="Xóa nhóm">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Product Modal
+    function openAddProductModal() {
+      document.getElementById('product-modal-heading').textContent = 'Thêm Sản Phẩm Mới';
+      document.getElementById('edit-prod-index').value = '-1';
       document.getElementById('prod-title').value = '';
       document.getElementById('prod-image').value = '';
       document.getElementById('prod-url').value = '';
-      document.getElementById('prod-category').value = 'beaded';
+      populateCategorySelect(currentCategories[0] ? currentCategories[0].id : '');
       updateImagePreview('');
       document.getElementById('product-modal').classList.add('active');
     }
 
-    function openEditModal(index) {
+    function openEditProductModal(index) {
       const p = currentProducts[index];
       if (!p) return;
-      document.getElementById('modal-heading').textContent = 'Chỉnh Sửa Sản Phẩm';
-      document.getElementById('edit-index').value = index;
+      document.getElementById('product-modal-heading').textContent = 'Chỉnh Sửa Sản Phẩm';
+      document.getElementById('edit-prod-index').value = index;
       document.getElementById('prod-title').value = p.title || '';
       document.getElementById('prod-image').value = p.image || '';
       document.getElementById('prod-url').value = p.shopee_url || '';
-      document.getElementById('prod-category').value = p.category || 'beaded';
+      populateCategorySelect(p.category);
       updateImagePreview(p.image || '');
       document.getElementById('product-modal').classList.add('active');
     }
 
-    function closeModal() {
+    function closeProductModal() {
       document.getElementById('product-modal').classList.remove('active');
     }
 
@@ -793,8 +962,8 @@
       const title = document.getElementById('prod-title').value.trim();
       const image = document.getElementById('prod-image').value.trim();
       const url = document.getElementById('prod-url').value.trim();
-      const category = document.getElementById('prod-category').value;
-      const index = parseInt(document.getElementById('edit-index').value);
+      const category = document.getElementById('prod-category-select').value;
+      const index = parseInt(document.getElementById('edit-prod-index').value);
 
       if (!title) {
         alert('Vui lòng nhập tên sản phẩm!');
@@ -815,26 +984,105 @@
         currentProducts.push(itemData);
       }
 
-      closeModal();
+      closeProductModal();
       renderProductsList();
+      renderCategoriesList();
       markChanges();
     }
 
-    function deleteItem(index) {
+    function deleteProduct(index) {
       if (confirm(`Bạn có chắc chắn muốn xóa "${currentProducts[index].title}"?`)) {
         currentProducts.splice(index, 1);
         renderProductsList();
+        renderCategoriesList();
         markChanges();
       }
     }
 
-    function moveItem(index, direction) {
+    function moveProduct(index, direction) {
       const targetIndex = index + direction;
       if (targetIndex < 0 || targetIndex >= currentProducts.length) return;
       const temp = currentProducts[index];
       currentProducts[index] = currentProducts[targetIndex];
       currentProducts[targetIndex] = temp;
       renderProductsList();
+      markChanges();
+    }
+
+    // Category Modal
+    function openAddCategoryModal() {
+      document.getElementById('category-modal-heading').textContent = 'Thêm Nhóm Mới';
+      document.getElementById('edit-cat-index').value = '-1';
+      document.getElementById('cat-name').value = '';
+      document.getElementById('category-modal').classList.add('active');
+    }
+
+    function openEditCategoryModal(index) {
+      const cat = currentCategories[index];
+      if (!cat) return;
+      document.getElementById('category-modal-heading').textContent = 'Sửa Tên Nhóm';
+      document.getElementById('edit-cat-index').value = index;
+      document.getElementById('cat-name').value = cat.name || '';
+      document.getElementById('category-modal').classList.add('active');
+    }
+
+    function closeCategoryModal() {
+      document.getElementById('category-modal').classList.remove('active');
+    }
+
+    function saveCategoryForm() {
+      const name = document.getElementById('cat-name').value.trim();
+      const index = parseInt(document.getElementById('edit-cat-index').value);
+
+      if (!name) {
+        alert('Vui lòng nhập tên nhóm!');
+        return;
+      }
+
+      if (index >= 0) {
+        currentCategories[index].name = name;
+      } else {
+        // Tạo slug id
+        const slugId = 'group-' + Date.now();
+        currentCategories.push({
+          id: slugId,
+          name: name
+        });
+      }
+
+      closeCategoryModal();
+      renderCategoriesList();
+      renderProductsList();
+      populateCategorySelect();
+      markChanges();
+    }
+
+    function deleteCategory(index) {
+      const cat = currentCategories[index];
+      if (!cat) return;
+      
+      const count = currentProducts.filter(p => p.category === cat.id).length;
+      let msg = `Bạn có chắc muốn xóa nhóm "${cat.name}"?`;
+      if (count > 0) {
+        msg += `\n(Có ${count} sản phẩm đang thuộc nhóm này).`;
+      }
+
+      if (confirm(msg)) {
+        currentCategories.splice(index, 1);
+        renderCategoriesList();
+        renderProductsList();
+        populateCategorySelect();
+        markChanges();
+      }
+    }
+
+    function moveCategory(index, direction) {
+      const targetIndex = index + direction;
+      if (targetIndex < 0 || targetIndex >= currentCategories.length) return;
+      const temp = currentCategories[index];
+      currentCategories[index] = currentCategories[targetIndex];
+      currentCategories[targetIndex] = temp;
+      renderCategoriesList();
       markChanges();
     }
 
@@ -854,13 +1102,18 @@
       btn.disabled = true;
 
       try {
-        const jsonContent = JSON.stringify({ items: currentProducts }, null, 2);
+        const payload = {
+          categories: currentCategories,
+          items: currentProducts
+        };
+
+        const jsonContent = JSON.stringify(payload, null, 2);
         // Encode utf-8 to base64
         const contentBase64 = btoa(unescape(encodeURIComponent(jsonContent)));
 
         const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
         const bodyData = {
-          message: "Update products from Admin Panel",
+          message: "Update categories & products from Admin Panel",
           content: contentBase64,
           sha: originalFileSha,
           branch: BRANCH

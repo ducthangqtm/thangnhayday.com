@@ -111,6 +111,10 @@ function openMomoApp() {
   showToast('Đang mở ứng dụng MoMo... ⚡');
 }
 
+let allCategories = [
+  { id: "day-nhay-phu-kien", name: "DÂY NHẢY VÀ PHỤ KIỆN" }
+];
+
 /**
  * Initialize Application
  */
@@ -121,15 +125,20 @@ async function initApp() {
 }
 
 /**
- * Fetch products dynamically from data/products.json
+ * Fetch products and categories dynamically from data/products.json
  */
 async function loadProductsData() {
   try {
     const res = await fetch('./data/products.json?v=' + Date.now());
     if (res.ok) {
       const data = await res.json();
-      if (data && Array.isArray(data.items) && data.items.length > 0) {
-        allProducts = data.items;
+      if (data) {
+        if (Array.isArray(data.categories) && data.categories.length > 0) {
+          allCategories = data.categories;
+        }
+        if (Array.isArray(data.items) && data.items.length > 0) {
+          allProducts = data.items;
+        }
       }
     }
   } catch (err) {
@@ -140,47 +149,105 @@ async function loadProductsData() {
 }
 
 /**
- * Render product cards in 2-column layout with single MUA NGAY button
+ * Render product cards in 2-column layout grouped by category
  */
 function renderProducts() {
   if (!productsListEl) return;
 
   if (allProducts.length === 0) {
     productsListEl.innerHTML = `
-      <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 20px;">
+      <div class="empty-state" style="text-align: center; padding: 30px; color: var(--text-sub);">
         <p class="empty-title">Chưa có sản phẩm nào</p>
       </div>
     `;
     return;
   }
 
-  productsListEl.innerHTML = allProducts.map((product, index) => {
-    const imgSrc = product.image || 'images/uploads/day-nhay-beaded.jpg';
-    const targetUrl = product.shopee_url || product.tiktok_url || 'https://shopee.vn';
+  let html = '';
 
-    return `
-      <article class="product-card" data-category="${escapeHtml(product.category || 'other')}" style="animation-delay: ${index * 0.08}s">
-        <div class="card-media">
-          <img src="${escapeHtml(imgSrc)}" 
-               alt="${escapeHtml(product.title)}" 
-               class="product-img" 
-               width="300" 
-               height="300" 
-               loading="lazy" 
-               referrerpolicy="no-referrer"
-               onerror="this.src='images/uploads/day-nhay-beaded.jpg'">
-        </div>
+  allCategories.forEach((cat) => {
+    const catProducts = allProducts.filter(p => (p.category || '') === cat.id);
+    if (catProducts.length === 0) return;
 
-        <div class="card-body">
-          <h3 class="product-name">${escapeHtml(product.title)}</h3>
-          <a href="${escapeHtml(targetUrl)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-buy-now" title="Mua ${escapeHtml(product.title)}">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span>MUA NGAY</span>
-          </a>
+    html += `
+      <div class="category-block" style="margin-bottom: 20px;">
+        <div class="category-header">
+          <span class="category-bar">|</span>
+          <h2 class="category-title">${escapeHtml(cat.name)}</h2>
         </div>
-      </article>
+        <div class="products-grid">
+          ${catProducts.map((product, index) => {
+            const imgSrc = product.image || 'images/uploads/day-nhay-beaded.jpg';
+            const targetUrl = product.shopee_url || product.tiktok_url || 'https://shopee.vn';
+            return `
+              <article class="product-card" style="animation-delay: ${index * 0.06}s">
+                <div class="card-media">
+                  <img src="${escapeHtml(imgSrc)}" 
+                       alt="${escapeHtml(product.title)}" 
+                       class="product-img" 
+                       width="300" 
+                       height="300" 
+                       loading="lazy" 
+                       referrerpolicy="no-referrer"
+                       onerror="this.src='images/uploads/day-nhay-beaded.jpg'">
+                </div>
+                <div class="card-body">
+                  <h3 class="product-name">${escapeHtml(product.title)}</h3>
+                  <a href="${escapeHtml(targetUrl)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-buy-now" title="Mua ${escapeHtml(product.title)}">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>MUA NGAY</span>
+                  </a>
+                </div>
+              </article>
+            `;
+          }).join('')}
+        </div>
+      </div>
     `;
-  }).join('');
+  });
+
+  // Handle any products without matching category
+  const assignedCatIds = allCategories.map(c => c.id);
+  const unassigned = allProducts.filter(p => !assignedCatIds.includes(p.category));
+  if (unassigned.length > 0) {
+    html += `
+      <div class="category-block" style="margin-bottom: 20px;">
+        <div class="category-header">
+          <span class="category-bar">|</span>
+          <h2 class="category-title">SẢN PHẨM KHÁC</h2>
+        </div>
+        <div class="products-grid">
+          ${unassigned.map((product, index) => {
+            const imgSrc = product.image || 'images/uploads/day-nhay-beaded.jpg';
+            const targetUrl = product.shopee_url || product.tiktok_url || 'https://shopee.vn';
+            return `
+              <article class="product-card" style="animation-delay: ${index * 0.06}s">
+                <div class="card-media">
+                  <img src="${escapeHtml(imgSrc)}" 
+                       alt="${escapeHtml(product.title)}" 
+                       class="product-img" 
+                       width="300" 
+                       height="300" 
+                       loading="lazy" 
+                       referrerpolicy="no-referrer"
+                       onerror="this.src='images/uploads/day-nhay-beaded.jpg'">
+                </div>
+                <div class="card-body">
+                  <h3 class="product-name">${escapeHtml(product.title)}</h3>
+                  <a href="${escapeHtml(targetUrl)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-buy-now" title="Mua ${escapeHtml(product.title)}">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>MUA NGAY</span>
+                  </a>
+                </div>
+              </article>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  productsListEl.innerHTML = html;
 }
 
 /**
