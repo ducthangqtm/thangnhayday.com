@@ -1,0 +1,29 @@
+backend:
+  name: github
+  repo: ducthangqtm/thangnhayday.com
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "images/uploads"
+
+site_url: "https://thangnhayday.com"
+display_url: "https://thangnhayday.com"
+logo_url: "https://thangnhayday.com/images/avatar.jpg"
+
+collections:
+  - name: "affiliate_products"
+    label: "Quản Lý Sản Phẩm Dây Nhảy"
+    files:
+      - file: "data/products.json"
+        label: "Danh Sách Sản Phẩm (2 Cột)"
+        name: "products"
+        fields:
+          - label: "Danh sách sản phẩm"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Tên sản phẩm", name: "title", widget: "string" }
+              - { label: "Link ảnh sản phẩm (Dán trực tiếp URL ảnh)", name: "image", widget: "string" }
+              - { label: "Link Mua Ngay (Shopee/Tiếp thị)", name: "shopee_url", widget: "string" }
+              - { label: "Mã phân loại (beaded, speed, weighted, mat)", name: "category", widget: "string", default: "beaded", required: false }

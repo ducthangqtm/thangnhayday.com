@@ -1,0 +1,1012 @@
+/* ==========================================================================
+   THẮNG NHẢY DÂY - BIO LINK & AFFILIATE STORE STYLESHEET
+   Design Theme: Athletic Dark / Neon Amber / Glassmorphic Premium UI
+   ========================================================================== */
+
+/* 1. CSS Custom Properties / Design Tokens */
+:root {
+  /* Dark Mode Default Tokens */
+  --bg-primary: #0a0e14;
+  --bg-secondary: #111722;
+  --bg-card: rgba(22, 28, 38, 0.85);
+  --bg-card-hover: rgba(30, 38, 52, 0.95);
+  --bg-glass: rgba(18, 24, 34, 0.7);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(245, 158, 11, 0.4);
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  
+  /* Vibrant Athletic Accents */
+  --accent-amber: #f59e0b;
+  --accent-orange: #ff5722;
+  --accent-cyan: #06b6d4;
+  --accent-emerald: #10b981;
+  --accent-rose: #f43f5e;
+  
+  /* Brand Specifics */
+  --shopee-from: #ee4d2d;
+  --shopee-to: #ff6b4a;
+  --shopee-shadow: rgba(238, 77, 45, 0.35);
+  
+  --tiktok-bg: #0f141c;
+  --tiktok-border: rgba(255, 255, 255, 0.15);
+  --tiktok-shadow: rgba(0, 0, 0, 0.5);
+  
+  /* Shadows & Elevation */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.5);
+  --glow-orange: 0 0 25px rgba(255, 87, 34, 0.25);
+  --glow-amber: 0 0 20px rgba(245, 158, 11, 0.25);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+  
+  --font-sans: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Light Mode Overrides */
+[data-theme="light"] {
+  --bg-primary: #f1f5f9;
+  --bg-secondary: #e2e8f0;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-card-hover: rgba(255, 255, 255, 1);
+  --bg-glass: rgba(255, 255, 255, 0.75);
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-focus: rgba(245, 158, 11, 0.6);
+  
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  
+  --tiktok-bg: #1e293b;
+  --tiktok-border: rgba(0, 0, 0, 0.1);
+  
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.12);
+  --glow-orange: 0 0 20px rgba(255, 87, 34, 0.15);
+}
+
+/* 2. Base & Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, span, a, strong, b, div {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+
+/* Bảo vệ FontAwesome Icon không bao giờ bị ghi đè font */
+.fab, .fa-brands {
+  font-family: "Font Awesome 6 Brands" !important;
+  font-weight: 400 !important;
+  font-style: normal;
+}
+
+.fas, .fa-solid {
+  font-family: "Font Awesome 6 Free" !important;
+  font-weight: 900 !important;
+  font-style: normal;
+}
+
+html {
+  font-size: 15px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  margin: 0;
+  padding: 16px 14px 50px;
+  line-height: 1.5;
+  position: relative;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 3. Ambient Background Glows */
+.glow-bg {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.25;
+}
+
+.glow-1 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, #ff5722 0%, rgba(245, 158, 11, 0) 70%);
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.glow-2 {
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, #06b6d4 0%, rgba(6, 182, 212, 0) 70%);
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 4. App Container (Căn Giữa Chuẩn Mobile-First 480px trên Mọi Màn Hình) */
+.app-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto !important;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 5. Top Navigation & Action Bar */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 4px;
+}
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-emerald);
+  backdrop-filter: blur(8px);
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-emerald);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: pulseAnimation 2s infinite;
+}
+
+@keyframes pulseAnimation {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(8px);
+}
+
+.icon-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-focus);
+  transform: translateY(-2px);
+}
+
+.icon-btn:active {
+  transform: scale(0.92);
+}
+
+/* Theme Icons Toggle */
+[data-theme="dark"] .sun-icon { display: block; color: #fbbf24; }
+[data-theme="dark"] .moon-icon { display: none; }
+[data-theme="light"] .sun-icon { display: none; }
+[data-theme="light"] .moon-icon { display: block; color: #3b82f6; }
+
+/* 6. Profile Header Section */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px 0 6px;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  margin-bottom: 14px;
+}
+
+.avatar-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff5722, #f59e0b, #06b6d4);
+  animation: rotateRing 6s linear infinite;
+}
+
+@keyframes rotateRing {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.avatar-img {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--bg-primary);
+  background-color: var(--bg-secondary);
+  z-index: 1;
+}
+
+.avatar-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #18181b;
+  border: 2px solid #ff5722;
+  font-size: 14px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: var(--shadow-sm);
+}
+
+.profile-info {
+  margin-bottom: 20px;
+}
+
+.profile-name {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-primary);
+}
+
+.verified-badge {
+  display: inline-flex;
+  color: #38bdf8;
+  animation: floatBadge 3s ease-in-out infinite;
+}
+
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.profile-handle {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--accent-amber);
+  margin-top: 2px;
+}
+
+.profile-bio {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  max-width: 360px;
+  margin: 8px auto 0;
+  line-height: 1.5;
+}
+
+/* Profile Stat Highlights */
+.profile-highlights {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 10px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+  backdrop-filter: blur(10px);
+  width: 100%;
+}
+
+.highlight-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.highlight-number {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  background: linear-gradient(135deg, #fff, var(--accent-amber));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme="light"] .highlight-number {
+  background: linear-gradient(135deg, #0f172a, #d97706);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.highlight-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.highlight-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-subtle);
+}
+
+/* 7. Social Links Bar - 4 Nút Đều Nhau (FB, YouTube, TikTok, Mời Cafe ☕) */
+.social-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.social-icon-btn {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(22, 28, 38, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  position: relative;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+
+.social-icon-btn i {
+  font-size: 2.1rem;
+  transition: transform var(--transition-fast);
+}
+
+.social-icon-btn.facebook i {
+  color: #1877F2;
+}
+
+.social-icon-btn.youtube i {
+  color: #FF0000;
+}
+
+.social-icon-btn.tiktok i {
+  color: #FFFFFF;
+}
+
+.zalo-text-badge {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #0068FF;
+  letter-spacing: 0.04em;
+  font-family: 'Roboto', sans-serif !important;
+  transition: transform var(--transition-fast);
+}
+
+/* Nút Mời Cafe đặc sắc */
+.social-icon-btn.coffee-btn {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.18);
+}
+
+.social-icon-btn.coffee-btn i {
+  color: #fbbf24;
+}
+
+.pulse-amber-dot {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 9px;
+  height: 9px;
+  background-color: #f59e0b;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+  animation: pulseCoffee 2s infinite;
+}
+
+@keyframes pulseCoffee {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 7px rgba(245, 158, 11, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+}
+
+.social-icon-btn:hover {
+  transform: translateY(-3px) scale(1.06);
+  background: rgba(30, 38, 52, 0.95);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+}
+
+.social-icon-btn:hover i,
+.social-icon-btn:hover .zalo-text-badge {
+  transform: scale(1.1);
+}
+
+.social-icon-btn.facebook:hover { border-color: rgba(24, 119, 242, 0.7); box-shadow: 0 8px 24px rgba(24, 119, 242, 0.35); }
+.social-icon-btn.youtube:hover { border-color: rgba(255, 0, 0, 0.7); box-shadow: 0 8px 24px rgba(255, 0, 0, 0.35); }
+.social-icon-btn.tiktok:hover { border-color: rgba(255, 255, 255, 0.7); box-shadow: 0 8px 24px rgba(255, 255, 255, 0.3); }
+.social-icon-btn.zalo:hover { border-color: rgba(0, 104, 255, 0.7); box-shadow: 0 8px 24px rgba(0, 104, 255, 0.35); }
+.social-icon-btn.coffee-btn:hover { border-color: #f59e0b; box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4); }
+
+.social-icon-btn:active {
+  transform: scale(0.94);
+}
+
+/* 8. Modal Popup Mời Cafe (MoMo VietQR - Chuẩn 100% như thangnd.io.vn) */
+.donate-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.donate-modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.donate-modal-box {
+  width: 100%;
+  max-width: 360px;
+  background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 28px;
+  padding: 24px 20px;
+  box-shadow: 0 0 50px rgba(245, 158, 11, 0.25);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transform: scale(0.92);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.donate-modal-overlay.active .donate-modal-box {
+  transform: scale(1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  transform: scale(1.08);
+}
+
+.modal-coffee-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(255, 87, 34, 0.25));
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+}
+
+.modal-coffee-icon i {
+  font-size: 1.5rem;
+  color: #fbbf24;
+}
+
+.modal-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+  margin-bottom: 4px;
+}
+
+.modal-sub {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin-bottom: 14px;
+}
+
+.modal-qr-frame {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #ffffff;
+  padding: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  border: 2px solid #fed7aa;
+  margin-bottom: 14px;
+}
+
+.modal-qr-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.modal-info-card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.modal-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.84rem;
+  color: #cbd5e1;
+}
+
+.momo-num-highlight {
+  color: #f59e0b;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.modal-btn-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 10px;
+  background: linear-gradient(135deg, #a50064, #d82d8b);
+  border: none;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(216, 45, 139, 0.35);
+  transition: all var(--transition-fast);
+}
+
+.modal-btn-copy:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.modal-btn-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.modal-btn-download:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-1px);
+}
+
+.modal-thanks {
+  font-size: 0.76rem;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* 9. Products Section (Chuẩn Lưới 2 Cột Theo Mẫu) */
+.products-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  padding-left: 2px;
+}
+
+.category-bar {
+  color: #f59e0b;
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.category-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #f59e0b;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* 10. Product Affiliate Grid (2 Cột) */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.product-card {
+  background: #0d121d;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+  animation: fadeInCard 0.4s ease backwards;
+}
+
+@keyframes fadeInCard {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.product-card:hover .product-img {
+  transform: scale(1.05);
+}
+
+/* Card Body */
+.card-body {
+  padding: 10px 10px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  gap: 10px;
+  text-align: center;
+}
+
+.product-name {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #f8fafc;
+  line-height: 1.35;
+  min-height: 2.3em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Nút MUA NGAY màu cam chuẩn như ảnh mẫu */
+.btn-buy-now {
+  width: 100%;
+  padding: 10px 6px;
+  background: linear-gradient(135deg, #e67e22, #f39c12);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 10px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  box-shadow: 0 3px 12px rgba(230, 126, 34, 0.35);
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-buy-now:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(230, 126, 34, 0.5);
+}
+
+.btn-buy-now:active {
+  transform: scale(0.96);
+}
+
+.btn-buy-now i {
+  font-size: 0.88rem;
+}
+
+.btn-cta:active {
+  transform: scale(0.96);
+}
+
+.btn-shopee {
+  background: linear-gradient(135deg, var(--shopee-from), var(--shopee-to));
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 14px var(--shopee-shadow);
+}
+
+.btn-shopee:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 6px 18px var(--shopee-shadow);
+  transform: translateY(-1px);
+}
+
+.btn-tiktok {
+  background: var(--tiktok-bg);
+  color: #ffffff;
+  border: 1px solid var(--tiktok-border);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-tiktok:hover {
+  background: #000000;
+  border-color: #00f2fe;
+  box-shadow: 0 4px 16px rgba(0, 242, 254, 0.25);
+  transform: translateY(-1px);
+}
+
+.btn-icon {
+  flex-shrink: 0;
+}
+
+/* 12. Tip Banner */
+.tip-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(255, 87, 34, 0.05));
+  border: 1px dashed rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius-md);
+}
+
+.tip-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.tip-text {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.tip-text strong {
+  color: var(--accent-amber);
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 30px 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--border-subtle);
+}
+
+.empty-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.empty-title {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.empty-btn {
+  background: var(--accent-amber);
+  color: #000;
+  font-weight: 700;
+  font-size: 0.8rem;
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+
+/* 13. Footer */
+.app-footer {
+  text-align: center;
+  padding: 24px 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.footer-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.footer-links a:hover {
+  color: var(--accent-amber);
+}
+
+.footer-copyright {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.footer-copyright a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.footer-tagline {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.footer-admin-link {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  opacity: 0.5;
+  transition: opacity var(--transition-fast);
+}
+
+.footer-admin-link:hover {
+  opacity: 1;
+  color: var(--accent-amber);
+}
+
+/* 14. Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #18181b;
+  color: #ffffff;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-lg);
+  font-size: 0.84rem;
+  font-weight: 600;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.toast-icon {
+  background: var(--accent-emerald);
+  color: #000;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 900;
+}
