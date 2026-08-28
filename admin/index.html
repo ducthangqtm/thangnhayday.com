@@ -3,20 +3,916 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Quản Trị Sản Phẩm | Thắng Nhảy Dây</title>
+  <title>Trang Quản Trị Sản Phẩm | Thắng Nhảy Dây</title>
   <link rel="icon" type="image/jpeg" href="../images/avatar.jpg">
-  <!-- Decap CMS CSS Custom Styling -->
+  
+  <!-- Font Roboto & FontAwesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
-    /* Styling adjustments for clean Vietnamese Decap admin */
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: #111827;
+      --bg-input: #1e293b;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --accent-orange: #f59e0b;
+      --accent-orange-hover: #d97706;
+      --accent-emerald: #10b981;
+      --accent-rose: #ef4444;
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      margin: 0;
-      background-color: #0f172a;
+      font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navbar */
+    .admin-header {
+      background: rgba(17, 24, 39, 0.95);
+      border-bottom: 1px solid var(--border-color);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-orange);
+      object-fit: cover;
+    }
+
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .brand-badge {
+      font-size: 0.75rem;
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--accent-orange);
+      padding: 2px 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      margin-left: 6px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-view-site {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .btn-view-site:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-logout {
+      padding: 8px 12px;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #f87171;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    /* Container */
+    .admin-container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 16px 60px;
+      flex-grow: 1;
+    }
+
+    /* Auth Screen (Login with GitHub Token) */
+    .auth-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 32px 24px;
+      max-width: 460px;
+      margin: 40px auto;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .auth-icon {
+      font-size: 2.5rem;
+      color: var(--accent-orange);
+      margin-bottom: 16px;
+    }
+
+    .auth-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .auth-desc {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .input-field:focus {
+      border-color: var(--accent-orange);
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border: none;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .token-guide {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      margin-top: 18px;
+      line-height: 1.5;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px;
+      border-radius: 8px;
+      border-left: 3px solid var(--accent-orange);
+    }
+
+    .token-guide a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+
+    /* Dashboard UI */
+    .dashboard-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .btn-add-product {
+      padding: 10px 16px;
+      background: var(--accent-emerald);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-add-product:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+
+    /* Products List */
+    .products-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .product-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .product-item:hover {
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    .item-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-grow: 1;
+      overflow: hidden;
+    }
+
+    .item-thumb {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: #000;
+      border: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+
+    .item-details {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow: hidden;
+    }
+
+    .item-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-link {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .item-link:hover {
+      color: #38bdf8;
+    }
+
+    .item-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .btn-action {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-action:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-action.delete:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.5);
+      color: #f87171;
+    }
+
+    /* Modal Edit / Add Product */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      max-width: 480px;
+      width: 100%;
+      padding: 24px;
+      position: relative;
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: var(--text-sub);
+      cursor: pointer;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+    }
+
+    .preview-box {
+      width: 100%;
+      height: 140px;
+      background: #000;
+      border: 1px dashed var(--border-color);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .preview-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    /* Floating Save Bar */
+    .save-bar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      padding: 12px 20px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 90;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translate(-50%, 40px); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
+    }
+
+    .btn-save-publish {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Toast */
+    .toast-msg {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      background: #065f46;
+      border: 1px solid #10b981;
+      color: #fff;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      z-index: 2000;
+      display: none;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
     }
   </style>
 </head>
 <body>
-  <!-- Include Decap CMS Script -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="brand-group">
+      <img src="../images/avatar.jpg" alt="Avatar" class="brand-avatar">
+      <div>
+        <span class="brand-title">Thắng Nhảy Dây</span>
+        <span class="brand-badge">Admin Panel</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a href="../" target="_blank" class="btn-view-site" title="Mở trang chủ">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        <span>Xem Web</span>
+      </a>
+      <button type="button" class="btn-logout" id="btn-logout" onclick="logout()" style="display: none;">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="admin-container">
+    
+    <!-- 1. AUTH SCREEN (Nhập token 1 lần duy nhất) -->
+    <div id="auth-screen" class="auth-card">
+      <div class="auth-icon">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      <h2 class="auth-title">Đăng Nhập Quản Trị</h2>
+      <p class="auth-desc">Nhập <strong>Mã Token GitHub</strong> của bạn để có quyền thêm/sửa sản phẩm và xuất bản trực tiếp lên website.</p>
+      
+      <input type="password" id="gh-token" class="input-field" placeholder="Dán mã Token (ghp_... hoặc github_pat_...)" autocomplete="off">
+      <button type="button" class="btn-primary" onclick="loginWithToken()">
+        <i class="fa-solid fa-key"></i>
+        <span>Đăng Nhập Quản Trị</span>
+      </button>
+
+      <div class="token-guide">
+        💡 <strong>Cách lấy mã Token (chỉ làm 1 lần):</strong><br>
+        1. Vào <a href="https://github.com/settings/tokens/new?scopes=repo&description=ThangNhayDayAdmin" target="_blank">Tạo GitHub Token Nhanh</a><br>
+        2. Chọn thời hạn (VD: 90 days hoặc No expiration)<br>
+        3. Tích chọn quyền <strong>repo</strong> ➔ Bấm <strong>Generate token</strong><br>
+        4. Copy mã token và dán vào ô trên là xong!
+      </div>
+    </div>
+
+    <!-- 2. DASHBOARD SCREEN -->
+    <div id="dashboard-screen" style="display: none;">
+      <div class="dashboard-header">
+        <div>
+          <h1 class="section-title">Danh Sách Sản Phẩm Dây Nhảy</h1>
+          <p style="font-size: 0.85rem; color: var(--text-sub); margin-top: 4px;">Dán link ảnh online &amp; link Shopee để cập nhật tức thì.</p>
+        </div>
+        <button type="button" class="btn-add-product" onclick="openAddModal()">
+          <i class="fa-solid fa-plus"></i>
+          <span>Thêm Sản Phẩm Mới</span>
+        </button>
+      </div>
+
+      <!-- Danh sách sản phẩm -->
+      <div id="products-list-container" class="products-list">
+        <!-- Render bằng JS -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 3. MODAL THÊM / SỬA SẢN PHẨM -->
+  <div id="product-modal" class="modal-overlay" onclick="if(event.target === this) closeModal();">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 id="modal-heading" class="modal-title">Thêm Sản Phẩm</h3>
+        <button type="button" class="modal-close" onclick="closeModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <input type="hidden" id="edit-index" value="-1">
+
+      <div class="form-group">
+        <label class="form-label">Tên sản phẩm (*)</label>
+        <input type="text" id="prod-title" class="input-field" placeholder="VD: Dây nhảy tốc độ TOPBODY EFFORT" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Link ảnh sản phẩm (*) <span style="font-size: 0.75rem; color: #f59e0b;">(Dán URL ảnh Shopee/Online)</span></label>
+        <input type="text" id="prod-image" class="input-field" placeholder="https://... hoặc images/uploads/..." oninput="updateImagePreview(this.value)">
+        <div class="preview-box">
+          <img id="image-preview" src="" alt="Xem trước ảnh" class="preview-img" style="display: none;">
+          <span id="preview-placeholder" style="color: var(--text-sub); font-size: 0.8rem;">Xem trước ảnh</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Link Mua Ngay Shopee / Tiếp thị (*)</label>
+        <input type="text" id="prod-url" class="input-field" placeholder="https://shopee.vn/..." required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Phân loại</label>
+        <select id="prod-category" class="input-field">
+          <option value="beaded">Dây hạt Beaded</option>
+          <option value="speed">Dây tốc độ cáp thép</option>
+          <option value="weighted">Dây nặng Weighted</option>
+          <option value="mat">Thảm nhảy dây</option>
+          <option value="other">Phụ kiện khác</option>
+        </select>
+      </div>
+
+      <button type="button" class="btn-primary" onclick="saveProductForm()">
+        <i class="fa-solid fa-check"></i>
+        <span>Xác Nhận</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 4. FLOATING SAVE BAR -->
+  <div id="save-bar" class="save-bar" style="display: none;">
+    <span style="font-size: 0.85rem; color: #cbd5e1;">Có thay đổi chưa xuất bản</span>
+    <button type="button" class="btn-save-publish" onclick="publishChanges()">
+      <i class="fa-solid fa-cloud-arrow-up"></i>
+      <span>LƯU &amp; XUẤT BẢN NGAY</span>
+    </button>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-msg"></div>
+
+  <script>
+    const REPO_OWNER = 'ducthangqtm';
+    const REPO_NAME = 'thangnhayday.com';
+    const FILE_PATH = 'data/products.json';
+    const BRANCH = 'main';
+
+    let currentProducts = [];
+    let originalFileSha = '';
+    let hasUnsavedChanges = false;
+
+    // Khởi động
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedToken = localStorage.getItem('thangnhayday_gh_token');
+      if (savedToken) {
+        showDashboard(savedToken);
+      }
+    });
+
+    function loginWithToken() {
+      const token = document.getElementById('gh-token').value.trim();
+      if (!token) {
+        alert('Vui lòng nhập mã Token GitHub!');
+        return;
+      }
+      localStorage.setItem('thangnhayday_gh_token', token);
+      showDashboard(token);
+    }
+
+    function logout() {
+      if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
+        localStorage.removeItem('thangnhayday_gh_token');
+        location.reload();
+      }
+    }
+
+    async function showDashboard(token) {
+      document.getElementById('auth-screen').style.display = 'none';
+      document.getElementById('dashboard-screen').style.display = 'block';
+      document.getElementById('btn-logout').style.display = 'block';
+      
+      await loadProductsFromGitHub(token);
+    }
+
+    // Tải dữ liệu từ GitHub
+    async function loadProductsFromGitHub(token) {
+      showToast('Đang tải dữ liệu từ GitHub...');
+      try {
+        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}?ref=${BRANCH}&t=${Date.now()}`;
+        const res = await fetch(url, {
+          headers: {
+            'Authorization': `token ${token}`,
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        });
+
+        if (!res.ok) {
+          if (res.status === 401) {
+            alert('Token không hợp lệ hoặc đã hết hạn. Vui lòng nhập lại!');
+            logout();
+            return;
+          }
+          throw new Error('Không thể đọc file từ GitHub');
+        }
+
+        const data = await res.json();
+        originalFileSha = data.sha;
+        
+        // Giải mã base64 UTF-8
+        const contentStr = decodeURIComponent(escape(atob(data.content)));
+        const json = JSON.parse(contentStr);
+        currentProducts = json.items || [];
+
+        renderProductsList();
+        showToast('✓ Đã tải dữ liệu thành công!');
+      } catch (err) {
+        console.error(err);
+        showToast('❌ Lỗi tải dữ liệu: ' + err.message, '#ef4444');
+      }
+    }
+
+    // Render danh sách
+    function renderProductsList() {
+      const container = document.getElementById('products-list-container');
+      if (!container) return;
+
+      if (currentProducts.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: var(--text-sub); padding: 30px;">Chưa có sản phẩm nào. Bấm nút Thêm sản phẩm mới ở trên.</p>';
+        return;
+      }
+
+      container.innerHTML = currentProducts.map((p, index) => {
+        const imgSrc = p.image || '../images/uploads/day-nhay-beaded.jpg';
+        return `
+          <div class="product-item">
+            <div class="item-left">
+              <img src="${escapeHtml(imgSrc)}" class="item-thumb" referrerpolicy="no-referrer" onerror="this.src='../images/uploads/day-nhay-beaded.jpg'">
+              <div class="item-details">
+                <div class="item-name">${escapeHtml(p.title || 'Chưa đặt tên')}</div>
+                <a href="${escapeHtml(p.shopee_url || '#')}" target="_blank" class="item-link" title="${escapeHtml(p.shopee_url)}">
+                  <i class="fa-solid fa-link"></i> ${escapeHtml(p.shopee_url || 'Chưa có link Shopee')}
+                </a>
+              </div>
+            </div>
+            <div class="item-actions">
+              <button type="button" class="btn-action" onclick="moveItem(${index}, -1)" title="Chuyển lên trên" ${index === 0 ? 'disabled style="opacity:0.3;"' : ''}>
+                <i class="fa-solid fa-arrow-up"></i>
+              </button>
+              <button type="button" class="btn-action" onclick="moveItem(${index}, 1)" title="Chuyển xuống dưới" ${index === currentProducts.length - 1 ? 'disabled style="opacity:0.3;"' : ''}>
+                <i class="fa-solid fa-arrow-down"></i>
+              </button>
+              <button type="button" class="btn-action" onclick="openEditModal(${index})" title="Chỉnh sửa">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button type="button" class="btn-action delete" onclick="deleteItem(${index})" title="Xóa">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Modal controls
+    function openAddModal() {
+      document.getElementById('modal-heading').textContent = 'Thêm Sản Phẩm Mới';
+      document.getElementById('edit-index').value = '-1';
+      document.getElementById('prod-title').value = '';
+      document.getElementById('prod-image').value = '';
+      document.getElementById('prod-url').value = '';
+      document.getElementById('prod-category').value = 'beaded';
+      updateImagePreview('');
+      document.getElementById('product-modal').classList.add('active');
+    }
+
+    function openEditModal(index) {
+      const p = currentProducts[index];
+      if (!p) return;
+      document.getElementById('modal-heading').textContent = 'Chỉnh Sửa Sản Phẩm';
+      document.getElementById('edit-index').value = index;
+      document.getElementById('prod-title').value = p.title || '';
+      document.getElementById('prod-image').value = p.image || '';
+      document.getElementById('prod-url').value = p.shopee_url || '';
+      document.getElementById('prod-category').value = p.category || 'beaded';
+      updateImagePreview(p.image || '');
+      document.getElementById('product-modal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('product-modal').classList.remove('active');
+    }
+
+    function updateImagePreview(url) {
+      const imgEl = document.getElementById('image-preview');
+      const placeholder = document.getElementById('preview-placeholder');
+      if (url && url.trim()) {
+        imgEl.src = url.trim();
+        imgEl.style.display = 'block';
+        placeholder.style.display = 'none';
+      } else {
+        imgEl.style.display = 'none';
+        placeholder.style.display = 'block';
+      }
+    }
+
+    function saveProductForm() {
+      const title = document.getElementById('prod-title').value.trim();
+      const image = document.getElementById('prod-image').value.trim();
+      const url = document.getElementById('prod-url').value.trim();
+      const category = document.getElementById('prod-category').value;
+      const index = parseInt(document.getElementById('edit-index').value);
+
+      if (!title) {
+        alert('Vui lòng nhập tên sản phẩm!');
+        return;
+      }
+
+      const itemData = {
+        id: index >= 0 ? currentProducts[index].id : 'prod-' + Date.now(),
+        title: title,
+        image: image || 'images/uploads/day-nhay-beaded.jpg',
+        shopee_url: url || 'https://shopee.vn',
+        category: category
+      };
+
+      if (index >= 0) {
+        currentProducts[index] = itemData;
+      } else {
+        currentProducts.push(itemData);
+      }
+
+      closeModal();
+      renderProductsList();
+      markChanges();
+    }
+
+    function deleteItem(index) {
+      if (confirm(`Bạn có chắc chắn muốn xóa "${currentProducts[index].title}"?`)) {
+        currentProducts.splice(index, 1);
+        renderProductsList();
+        markChanges();
+      }
+    }
+
+    function moveItem(index, direction) {
+      const targetIndex = index + direction;
+      if (targetIndex < 0 || targetIndex >= currentProducts.length) return;
+      const temp = currentProducts[index];
+      currentProducts[index] = currentProducts[targetIndex];
+      currentProducts[targetIndex] = temp;
+      renderProductsList();
+      markChanges();
+    }
+
+    function markChanges() {
+      hasUnsavedChanges = true;
+      document.getElementById('save-bar').style.display = 'flex';
+    }
+
+    // Xuất bản lên GitHub
+    async function publishChanges() {
+      const token = localStorage.getItem('thangnhayday_gh_token');
+      if (!token) return;
+
+      const btn = document.querySelector('.btn-save-publish');
+      const origHtml = btn.innerHTML;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang xuất bản...';
+      btn.disabled = true;
+
+      try {
+        const jsonContent = JSON.stringify({ items: currentProducts }, null, 2);
+        // Encode utf-8 to base64
+        const contentBase64 = btoa(unescape(encodeURIComponent(jsonContent)));
+
+        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
+        const bodyData = {
+          message: "Update products from Admin Panel",
+          content: contentBase64,
+          sha: originalFileSha,
+          branch: BRANCH
+        };
+
+        const res = await fetch(url, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${token}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.v3+json'
+          },
+          body: JSON.stringify(bodyData)
+        });
+
+        if (!res.ok) {
+          const errData = await res.json();
+          throw new Error(errData.message || 'Lỗi lưu dữ liệu');
+        }
+
+        const resData = await res.json();
+        originalFileSha = resData.content.sha;
+        hasUnsavedChanges = false;
+        document.getElementById('save-bar').style.display = 'none';
+
+        showToast('🎉 Đã xuất bản thành công! Web sẽ cập nhật sau 5 giây.');
+      } catch (err) {
+        console.error(err);
+        alert('❌ Lỗi xuất bản: ' + err.message);
+      } finally {
+        btn.innerHTML = origHtml;
+        btn.disabled = false;
+      }
+    }
+
+    function showToast(msg, bg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      if (bg) toast.style.background = bg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 3000);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
 </body>
 </html>
