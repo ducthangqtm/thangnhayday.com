@@ -137,34 +137,44 @@ async function initApp() {
 }
 
 /**
- * Fetch products, categories, and tabs dynamically from data/products.json
+ * Fetch products, categories, and tabs dynamically from data/products.json and sync with localStorage
  */
 async function loadProductsData() {
+  // 1. Tải dữ liệu mặc định từ file products.json
   try {
     const res = await fetch('./data/products.json?v=' + Date.now());
     if (res.ok) {
       const data = await res.json();
       if (data) {
-        if (Array.isArray(data.tabs) && data.tabs.length > 0) {
-          allTabs = data.tabs;
-        }
-        if (Array.isArray(data.categories) && data.categories.length > 0) {
-          allCategories = data.categories;
-        }
-        if (Array.isArray(data.items) && data.items.length > 0) {
-          allProducts = data.items;
-        }
+        if (Array.isArray(data.tabs) && data.tabs.length > 0) allTabs = data.tabs;
+        if (Array.isArray(data.categories) && data.categories.length > 0) allCategories = data.categories;
+        if (Array.isArray(data.items)) allProducts = data.items;
       }
     }
   } catch (err) {
-    console.info('Using local products fallback:', err);
-  } finally {
-    if (allTabs.length > 0) {
-      activeTabId = allTabs[0].id;
-    }
-    renderCategoryTabs();
-    renderProducts();
+    console.info('Fetch products error:', err);
   }
+
+  // 2. Nếu đang test trên máy (Localhost) và đã chỉnh sửa từ Admin, áp dụng ngay tức thì!
+  const localCached = localStorage.getItem('thangnhayday_local_data');
+  if (localCached) {
+    try {
+      const data = JSON.parse(localCached);
+      if (data) {
+        if (Array.isArray(data.tabs) && data.tabs.length > 0) allTabs = data.tabs;
+        if (Array.isArray(data.categories)) allCategories = data.categories;
+        if (Array.isArray(data.items)) allProducts = data.items;
+      }
+    } catch (e) {
+      console.warn('Cache error:', e);
+    }
+  }
+
+  if (allTabs.length > 0) {
+    activeTabId = allTabs[0].id;
+  }
+  renderCategoryTabs();
+  renderProducts();
 }
 
 /**

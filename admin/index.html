@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trang Quản Trị Sản Phẩm & Tab Môn Tập | Thắng Nhảy Dây</title>
+  <title>Trang Quản Trị Sản Phẩm & Môn Tập | Thắng Nhảy Dây</title>
   <link rel="icon" type="image/jpeg" href="../images/avatar.jpg">
   
   <!-- Font Roboto & FontAwesome Icons -->
@@ -19,7 +19,6 @@
       --bg-input: #1e293b;
       --border-color: rgba(255, 255, 255, 0.1);
       --accent-orange: #f59e0b;
-      --accent-orange-hover: #d97706;
       --accent-emerald: #10b981;
       --accent-rose: #ef4444;
       --text-main: #f8fafc;
@@ -85,6 +84,26 @@
       display: flex;
       align-items: center;
       gap: 10px;
+    }
+
+    .btn-header-publish {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+      transition: all 0.2s;
+    }
+
+    .btn-header-publish:hover {
+      filter: brightness(1.1);
     }
 
     .btn-view-site {
@@ -565,6 +584,10 @@
       </div>
     </div>
     <div class="header-actions">
+      <button type="button" class="btn-header-publish" id="btn-header-save" onclick="publishChanges()" style="display: none;">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <span>Lưu &amp; Xuất Bản</span>
+      </button>
       <a href="../" target="_blank" class="btn-view-site" title="Mở trang chủ">
         <i class="fa-solid fa-arrow-up-right-from-square"></i>
         <span>Xem Web</span>
@@ -611,7 +634,7 @@
           <span>1. Quản Lý Sản Phẩm</span>
         </button>
         <button type="button" class="tab-btn" id="tab-btn-tabs" onclick="switchTab('tabs')">
-          <i class="fa-solid fa-person-walking"></i>
+          <i class="fa-solid fa-person-running"></i>
           <span>2. Quản Lý Môn Tập (Tabs)</span>
         </button>
         <button type="button" class="tab-btn" id="tab-btn-categories" onclick="switchTab('categories')">
@@ -711,7 +734,7 @@
 
       <div class="form-group">
         <label class="form-label">Link ảnh sản phẩm (*) <span style="font-size: 0.75rem; color: #f59e0b;">(Dán link ảnh Shopee/Online)</span></label>
-        <input type="text" id="prod-image" class="input-field" placeholder="https://... hoặc images/uploads/..." oninput="updateImagePreview(this.value)">
+        <input type="text" id="prod-image" class="input-field" placeholder="https://... hoặc images/avatar.jpg" oninput="updateImagePreview(this.value)">
         <div class="preview-box">
           <img id="image-preview" src="" alt="Xem trước ảnh" class="preview-img" style="display: none;">
           <span id="preview-placeholder" style="color: var(--text-sub); font-size: 0.8rem;">Xem trước ảnh</span>
@@ -1135,12 +1158,15 @@
     }
 
     function deleteProduct(index) {
-      if (confirm(`Bạn có chắc chắn muốn xóa "${currentProducts[index].title}"?`)) {
+      const p = currentProducts[index];
+      if (!p) return;
+      if (confirm(`Bạn có chắc chắn muốn xóa "${p.title}"?`)) {
         currentProducts.splice(index, 1);
         renderProductsList();
         renderTabsList();
         renderCategoriesList();
         markChanges();
+        showToast('✓ Đã xóa sản phẩm. Hãy bấm Lưu & Xuất Bản ở trên!');
       }
     }
 
@@ -1303,6 +1329,16 @@
     function markChanges() {
       hasUnsavedChanges = true;
       document.getElementById('save-bar').style.display = 'flex';
+      const headerSave = document.getElementById('btn-header-save');
+      if (headerSave) headerSave.style.display = 'inline-flex';
+
+      // Đồng bộ tức thì sang localStorage để localhost xem được ngay
+      const payload = {
+        tabs: currentTabs,
+        categories: currentCategories,
+        items: currentProducts
+      };
+      localStorage.setItem('thangnhayday_local_data', JSON.stringify(payload));
     }
 
     // Xuất bản lên GitHub
@@ -1310,10 +1346,17 @@
       const token = localStorage.getItem('thangnhayday_gh_token');
       if (!token) return;
 
-      const btn = document.querySelector('.btn-save-publish');
-      const origHtml = btn.innerHTML;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang xuất bản...';
-      btn.disabled = true;
+      const btnFloating = document.querySelector('.btn-save-publish');
+      const btnHeader = document.getElementById('btn-header-save');
+      const origHtml = btnFloating ? btnFloating.innerHTML : '';
+      if (btnFloating) {
+        btnFloating.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang xuất bản...';
+        btnFloating.disabled = true;
+      }
+      if (btnHeader) {
+        btnHeader.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang lưu...';
+        btnHeader.disabled = true;
+      }
 
       try {
         const payload = {
@@ -1352,14 +1395,21 @@
         originalFileSha = resData.content.sha;
         hasUnsavedChanges = false;
         document.getElementById('save-bar').style.display = 'none';
+        if (btnHeader) btnHeader.style.display = 'none';
 
         showToast('🎉 Đã xuất bản thành công! Web sẽ cập nhật sau 5 giây.');
       } catch (err) {
         console.error(err);
         alert('❌ Lỗi xuất bản: ' + err.message);
       } finally {
-        btn.innerHTML = origHtml;
-        btn.disabled = false;
+        if (btnFloating) {
+          btnFloating.innerHTML = origHtml;
+          btnFloating.disabled = false;
+        }
+        if (btnHeader) {
+          btnHeader.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> <span>Lưu & Xuất Bản</span>';
+          btnHeader.disabled = false;
+        }
       }
     }
 
