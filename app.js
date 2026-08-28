@@ -68,11 +68,27 @@ const DEFAULT_PRODUCTS = [
   }
 ];
 
-let allProducts = [...DEFAULT_PRODUCTS];
-let activeCategory = 'all';
+let allTabs = [
+  { id: "nhay-day", name: "Dây Nhảy" },
+  { id: "keo-xa", name: "Đồ Kéo Xà" },
+  { id: "chong-day", name: "Đồ Chống Đẩy" },
+  { id: "chay-bo", name: "Đồ Chạy Bộ" }
+];
+
+let allCategories = [
+  { id: "day-nhay-phu-kien", tab_id: "nhay-day", name: "DÂY NHẢY VÀ PHỤ KIỆN" },
+  { id: "phu-kien-bo-tro", tab_id: "nhay-day", name: "PHỤ KIỆN BỔ TRỢ & SỨC KHỎE" },
+  { id: "xa-don-phu-kien", tab_id: "keo-xa", name: "XÀ ĐƠN & DÂY KHÁNG LỰC TRỢ LỰC" },
+  { id: "chong-day-dung-cu", tab_id: "chong-day", name: "DỤNG CỤ HÍT ĐẤT & BẢNG CHỐNG ĐẨY" },
+  { id: "chay-bo-phu-kien", tab_id: "chay-bo", name: "GIÀY, TẤT & PHỤ KIỆN CHẠY BỘ" }
+];
+
+let allProducts = [];
+let activeTabId = 'nhay-day';
 
 // DOM Elements
 const productsListEl = document.getElementById('products-list');
+const categoryTabsNavEl = document.getElementById('category-tabs-nav');
 const toastEl = document.getElementById('toast');
 const toastTextEl = document.getElementById('toast-text');
 const btnShare = document.getElementById('btn-share');
@@ -110,30 +126,6 @@ function openMomoApp() {
   window.location.href = 'momo://';
   showToast('Đang mở ứng dụng MoMo... ⚡');
 }
-
-let allTabs = [
-  { id: "nhay-day", name: "Dây Nhảy" },
-  { id: "keo-xa", name: "Đồ Kéo Xà" },
-  { id: "chong-day", name: "Đồ Chống Đẩy" },
-  { id: "chay-bo", name: "Đồ Chạy Bộ" }
-];
-
-let allCategories = [
-  { id: "day-nhay-phu-kien", tab_id: "nhay-day", name: "DÂY NHẢY VÀ PHỤ KIỆN" },
-  { id: "phu-kien-bo-tro", tab_id: "nhay-day", name: "PHỤ KIỆN BỔ TRỢ & SỨC KHỎE" },
-  { id: "xa-don-phu-kien", tab_id: "keo-xa", name: "XÀ ĐƠN & DÂY KHÁNG LỰC TRỢ LỰC" },
-  { id: "chong-day-dung-cu", tab_id: "chong-day", name: "DỤNG CỤ HÍT ĐẤT & BẢNG CHỐNG ĐẨY" },
-  { id: "chay-bo-phu-kien", tab_id: "chay-bo", name: "GIÀY, TẤT & PHỤ KIỆN CHẠY BỘ" }
-];
-
-let activeTabId = 'nhay-day';
-
-// DOM Elements
-const productsListEl = document.getElementById('products-list');
-const categoryTabsNavEl = document.getElementById('category-tabs-nav');
-const toastEl = document.getElementById('toast');
-const toastTextEl = document.getElementById('toast-text');
-const btnShare = document.getElementById('btn-share');
 
 /**
  * Initialize Application
