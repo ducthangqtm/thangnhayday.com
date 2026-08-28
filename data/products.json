@@ -26,7 +26,7 @@
     {
       "id": "xa-don-phu-kien",
       "tab_id": "keo-xa",
-      "name": "XÀ ĐƠN & DÂY KHÁNG LỰC TRỢ LỰC"
+      "name": "XÀ ĐƠN & XÀ KÉP"
     },
     {
       "id": "chong-day-dung-cu",
@@ -108,6 +108,70 @@
       "category": "do-cho-con",
       "image": "https://down-vn.img.susercontent.com/file/sg-11134201-7rdw4-lz8o2lt45rcn56.webp",
       "shopee_url": "https://s.shopee.vn/9ANzYAVmCs"
+    },
+    {
+      "id": "prod-1787908257180",
+      "title": "Xà Đơn Xà Kép Treo Tường Đa Năng INFIT Pro",
+      "tab_id": "keo-xa",
+      "category": "xa-don-phu-kien",
+      "image": "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lpmgblon8l0b82.webp",
+      "shopee_url": "https://s.shopee.vn/6L3zmn4phd"
+    },
+    {
+      "id": "prod-1787908270837",
+      "title": "Xà đơn gắn cửa GoodFit GF01PU",
+      "tab_id": "keo-xa",
+      "category": "xa-don-phu-kien",
+      "image": "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mq31d8k1qf4c54.webp",
+      "shopee_url": "https://s.shopee.vn/20v0ckoEFT"
+    },
+    {
+      "id": "prod-1787908288770",
+      "title": "Bảng Chống Đẩy 34 Ô Tập",
+      "tab_id": "chong-day",
+      "category": "chong-day-dung-cu",
+      "image": "https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-mciojy7a8za442.webp",
+      "shopee_url": "https://s.shopee.vn/6AkZaaGeh4"
+    },
+    {
+      "id": "prod-1787908300672",
+      "title": "Bộ chống đẩy hít đất chân thẳng",
+      "tab_id": "chong-day",
+      "category": "chong-day-dung-cu",
+      "image": "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lxj7c5rhropl78.webp",
+      "shopee_url": "https://s.shopee.vn/BTMRaH6RQ"
+    },
+    {
+      "id": "prod-1787908317316",
+      "title": "Giày thể thao chạy bộ nam nữ Goya Plus",
+      "tab_id": "chay-bo",
+      "category": "chay-bo-phu-kien",
+      "image": "https://down-vn.img.susercontent.com/file/vn-11134207-820l4-mfhn2pu1qtca75.webp",
+      "shopee_url": "https://s.shopee.vn/20v0d7NL5Y"
+    },
+    {
+      "id": "prod-1787908331911",
+      "title": "Set đồ chạy bộ Coolmate",
+      "tab_id": "chay-bo",
+      "category": "chay-bo-phu-kien",
+      "image": "https://down-vn.img.susercontent.com/file/vn-11134211-81ztc-ms6t30wass925b.webp",
+      "shopee_url": "https://s.shopee.vn/3B6y1E6iFV"
+    },
+    {
+      "id": "prod-1787908347736",
+      "title": "Túi Đai Đeo Bụng Cho Nữ Siêu Nhẹ Oudu",
+      "tab_id": "chay-bo",
+      "category": "chay-bo-phu-kien",
+      "image": "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lug3cb3oegpe96.webp",
+      "shopee_url": "https://s.shopee.vn/7KwWyrYpZ1"
+    },
+    {
+      "id": "prod-1787908364963",
+      "title": "Bó Gối Thể Thao Có Miếng Đệm Dày",
+      "tab_id": "chay-bo",
+      "category": "chay-bo-phu-kien",
+      "image": "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mm0149zhoc1u19.webp",
+      "shopee_url": "https://s.shopee.vn/4LIvPtSBbz"
     }
   ]
 }
