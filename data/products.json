@@ -3,6 +3,10 @@
     {
       "id": "day-nhay-phu-kien",
       "name": "DÂY NHẢY VÀ PHỤ KIỆN"
+    },
+    {
+      "id": "group-1787898229607",
+      "name": "ĐỒ CHO CON"
     }
   ],
   "items": [
@@ -21,17 +25,17 @@
       "category": "day-nhay-phu-kien"
     },
     {
-      "id": "prod-1787896635633",
-      "title": "Thảm nhảy dây SPORTY YGW43",
-      "image": "https://down-vn.img.susercontent.com/file/5d1b118018339fb1dd6206e15bfe926f.webp",
-      "shopee_url": "https://s.shopee.vn/50YYz330Ku",
-      "category": "day-nhay-phu-kien"
-    },
-    {
       "id": "prod-1787897007152",
       "title": "Đai bảo vệ vòng 1 JUSTFIT",
       "image": "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mp4jolltb9xo4a.webp",
       "shopee_url": "https://s.shopee.vn/5q7fyePRJ5",
+      "category": "day-nhay-phu-kien"
+    },
+    {
+      "id": "prod-1787896635633",
+      "title": "Thảm nhảy dây SPORTY YGW43",
+      "image": "https://down-vn.img.susercontent.com/file/5d1b118018339fb1dd6206e15bfe926f.webp",
+      "shopee_url": "https://s.shopee.vn/50YYz330Ku",
       "category": "day-nhay-phu-kien"
     },
     {
