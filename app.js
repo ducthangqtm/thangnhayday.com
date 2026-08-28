@@ -69,18 +69,18 @@ const DEFAULT_PRODUCTS = [
 ];
 
 let allTabs = [
-  { id: "nhay-day", name: "Dây Nhảy" },
-  { id: "keo-xa", name: "Đồ Kéo Xà" },
-  { id: "chong-day", name: "Đồ Chống Đẩy" },
-  { id: "chay-bo", name: "Đồ Chạy Bộ" }
+  { id: "nhay-day", name: "Nhảy Dây" },
+  { id: "keo-xa", name: "Kéo Xà" },
+  { id: "chong-day", name: "Chống Đẩy" },
+  { id: "chay-bo", name: "Chạy Bộ" }
 ];
 
 let allCategories = [
   { id: "day-nhay-phu-kien", tab_id: "nhay-day", name: "DÂY NHẢY VÀ PHỤ KIỆN" },
-  { id: "phu-kien-bo-tro", tab_id: "nhay-day", name: "PHỤ KIỆN BỔ TRỢ & SỨC KHỎE" },
   { id: "xa-don-phu-kien", tab_id: "keo-xa", name: "XÀ ĐƠN & DÂY KHÁNG LỰC TRỢ LỰC" },
   { id: "chong-day-dung-cu", tab_id: "chong-day", name: "DỤNG CỤ HÍT ĐẤT & BẢNG CHỐNG ĐẨY" },
-  { id: "chay-bo-phu-kien", tab_id: "chay-bo", name: "GIÀY, TẤT & PHỤ KIỆN CHẠY BỘ" }
+  { id: "chay-bo-phu-kien", tab_id: "chay-bo", name: "GIÀY, TẤT & PHỤ KIỆN CHẠY BỘ" },
+  { id: "do-cho-con", tab_id: "nhay-day", name: "ĐỒ CHO CON" }
 ];
 
 let allProducts = [];
