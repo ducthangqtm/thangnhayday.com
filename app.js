@@ -111,9 +111,29 @@ function openMomoApp() {
   showToast('Đang mở ứng dụng MoMo... ⚡');
 }
 
-let allCategories = [
-  { id: "day-nhay-phu-kien", name: "DÂY NHẢY VÀ PHỤ KIỆN" }
+let allTabs = [
+  { id: "nhay-day", name: "Dây Nhảy" },
+  { id: "keo-xa", name: "Đồ Kéo Xà" },
+  { id: "chong-day", name: "Đồ Chống Đẩy" },
+  { id: "chay-bo", name: "Đồ Chạy Bộ" }
 ];
+
+let allCategories = [
+  { id: "day-nhay-phu-kien", tab_id: "nhay-day", name: "DÂY NHẢY VÀ PHỤ KIỆN" },
+  { id: "phu-kien-bo-tro", tab_id: "nhay-day", name: "PHỤ KIỆN BỔ TRỢ & SỨC KHỎE" },
+  { id: "xa-don-phu-kien", tab_id: "keo-xa", name: "XÀ ĐƠN & DÂY KHÁNG LỰC TRỢ LỰC" },
+  { id: "chong-day-dung-cu", tab_id: "chong-day", name: "DỤNG CỤ HÍT ĐẤT & BẢNG CHỐNG ĐẨY" },
+  { id: "chay-bo-phu-kien", tab_id: "chay-bo", name: "GIÀY, TẤT & PHỤ KIỆN CHẠY BỘ" }
+];
+
+let activeTabId = 'nhay-day';
+
+// DOM Elements
+const productsListEl = document.getElementById('products-list');
+const categoryTabsNavEl = document.getElementById('category-tabs-nav');
+const toastEl = document.getElementById('toast');
+const toastTextEl = document.getElementById('toast-text');
+const btnShare = document.getElementById('btn-share');
 
 /**
  * Initialize Application
@@ -125,7 +145,7 @@ async function initApp() {
 }
 
 /**
- * Fetch products and categories dynamically from data/products.json
+ * Fetch products, categories, and tabs dynamically from data/products.json
  */
 async function loadProductsData() {
   try {
@@ -133,6 +153,9 @@ async function loadProductsData() {
     if (res.ok) {
       const data = await res.json();
       if (data) {
+        if (Array.isArray(data.tabs) && data.tabs.length > 0) {
+          allTabs = data.tabs;
+        }
         if (Array.isArray(data.categories) && data.categories.length > 0) {
           allCategories = data.categories;
         }
@@ -144,30 +167,64 @@ async function loadProductsData() {
   } catch (err) {
     console.info('Using local products fallback:', err);
   } finally {
+    if (allTabs.length > 0) {
+      activeTabId = allTabs[0].id;
+    }
+    renderCategoryTabs();
     renderProducts();
   }
 }
 
 /**
- * Render product cards in 2-column layout grouped by category
+ * Render horizontal category tabs (Dây nhảy, Đồ kéo xà, Đồ chống đẩy, Đồ chạy bộ)
+ */
+function renderCategoryTabs() {
+  if (!categoryTabsNavEl) return;
+
+  categoryTabsNavEl.innerHTML = allTabs.map(tab => {
+    const isActive = tab.id === activeTabId;
+    return `
+      <button type="button" 
+              class="tab-pill-btn ${isActive ? 'active' : ''}" 
+              onclick="selectTab('${escapeHtml(tab.id)}')"
+              aria-selected="${isActive ? 'true' : 'false'}">
+        ${escapeHtml(tab.name)}
+      </button>
+    `;
+  }).join('');
+}
+
+/**
+ * Switch active sport tab
+ */
+function selectTab(tabId) {
+  activeTabId = tabId;
+  renderCategoryTabs();
+  renderProducts();
+}
+
+/**
+ * Render product cards in 2-column layout grouped by sub-categories inside active tab
  */
 function renderProducts() {
   if (!productsListEl) return;
 
-  if (allProducts.length === 0) {
-    productsListEl.innerHTML = `
-      <div class="empty-state" style="text-align: center; padding: 30px; color: var(--text-sub);">
-        <p class="empty-title">Chưa có sản phẩm nào</p>
-      </div>
-    `;
-    return;
-  }
+  // Find categories belonging to current active tab
+  const tabCategories = allCategories.filter(c => (c.tab_id || 'nhay-day') === activeTabId);
+
+  // If no categories found for this tab, create a default one
+  const displayCategories = tabCategories.length > 0 ? tabCategories : [
+    { id: activeTabId, name: allTabs.find(t => t.id === activeTabId)?.name?.toUpperCase() || 'SẢN PHẨM KHUYÊN DÙNG' }
+  ];
 
   let html = '';
+  let totalRendered = 0;
 
-  allCategories.forEach((cat) => {
-    const catProducts = allProducts.filter(p => (p.category || '') === cat.id);
+  displayCategories.forEach((cat) => {
+    const catProducts = allProducts.filter(p => (p.category === cat.id) || (p.tab_id === activeTabId && !p.category));
     if (catProducts.length === 0) return;
+
+    totalRendered += catProducts.length;
 
     html += `
       <div class="category-block" style="margin-bottom: 20px;">
@@ -177,7 +234,7 @@ function renderProducts() {
         </div>
         <div class="products-grid">
           ${catProducts.map((product, index) => {
-            const imgSrc = product.image || 'images/uploads/day-nhay-beaded.jpg';
+            const imgSrc = product.image || 'images/avatar.jpg';
             const targetUrl = product.shopee_url || product.tiktok_url || 'https://shopee.vn';
             return `
               <article class="product-card" style="animation-delay: ${index * 0.06}s">
@@ -189,7 +246,7 @@ function renderProducts() {
                        height="300" 
                        loading="lazy" 
                        referrerpolicy="no-referrer"
-                       onerror="this.src='images/uploads/day-nhay-beaded.jpg'">
+                       onerror="this.src='images/avatar.jpg'">
                 </div>
                 <div class="card-body">
                   <h3 class="product-name">${escapeHtml(product.title)}</h3>
@@ -206,45 +263,15 @@ function renderProducts() {
     `;
   });
 
-  // Handle any products without matching category
-  const assignedCatIds = allCategories.map(c => c.id);
-  const unassigned = allProducts.filter(p => !assignedCatIds.includes(p.category));
-  if (unassigned.length > 0) {
-    html += `
-      <div class="category-block" style="margin-bottom: 20px;">
-        <div class="category-header">
-          <span class="category-bar">|</span>
-          <h2 class="category-title">SẢN PHẨM KHÁC</h2>
-        </div>
-        <div class="products-grid">
-          ${unassigned.map((product, index) => {
-            const imgSrc = product.image || 'images/uploads/day-nhay-beaded.jpg';
-            const targetUrl = product.shopee_url || product.tiktok_url || 'https://shopee.vn';
-            return `
-              <article class="product-card" style="animation-delay: ${index * 0.06}s">
-                <div class="card-media">
-                  <img src="${escapeHtml(imgSrc)}" 
-                       alt="${escapeHtml(product.title)}" 
-                       class="product-img" 
-                       width="300" 
-                       height="300" 
-                       loading="lazy" 
-                       referrerpolicy="no-referrer"
-                       onerror="this.src='images/uploads/day-nhay-beaded.jpg'">
-                </div>
-                <div class="card-body">
-                  <h3 class="product-name">${escapeHtml(product.title)}</h3>
-                  <a href="${escapeHtml(targetUrl)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-buy-now" title="Mua ${escapeHtml(product.title)}">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span>MUA NGAY</span>
-                  </a>
-                </div>
-              </article>
-            `;
-          }).join('')}
-        </div>
+  if (totalRendered === 0) {
+    const currentTabName = allTabs.find(t => t.id === activeTabId)?.name || 'Môn này';
+    productsListEl.innerHTML = `
+      <div class="empty-state" style="text-align: center; padding: 40px 20px; color: var(--text-sub);">
+        <div style="font-size: 2.2rem; margin-bottom: 10px;">📦</div>
+        <p class="empty-title" style="font-size: 0.95rem; font-weight: 500;">Sản phẩm <strong>${escapeHtml(currentTabName)}</strong> đang được Thắng tổng hợp &amp; cập nhật...</p>
       </div>
     `;
+    return;
   }
 
   productsListEl.innerHTML = html;

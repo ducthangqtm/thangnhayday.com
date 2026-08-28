@@ -680,6 +680,55 @@ body {
   margin-top: 4px;
 }
 
+/* 8.5 Category Tabs Navigation (Pills trượt ngang hiện đại) */
+.category-tabs-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 2px 8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.category-tabs-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 18px;
+  background: rgba(22, 28, 38, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  color: #94a3b8;
+  font-size: 0.86rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all var(--transition-fast);
+}
+
+.tab-pill-btn:hover {
+  background: rgba(30, 38, 52, 0.95);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.tab-pill-btn.active {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-color: transparent;
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
+  transform: scale(1.02);
+}
+
 /* 9. Products Section (Chuẩn Lưới 2 Cột Theo Mẫu) */
 .products-section {
   width: 100%;

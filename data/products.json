@@ -1,35 +1,65 @@
 {
+  "tabs": [
+    {
+      "id": "nhay-day",
+      "name": "Dây Nhảy"
+    },
+    {
+      "id": "keo-xa",
+      "name": "Đồ Kéo Xà"
+    },
+    {
+      "id": "chong-day",
+      "name": "Đồ Chống Đẩy"
+    },
+    {
+      "id": "chay-bo",
+      "name": "Đồ Chạy Bộ"
+    }
+  ],
   "categories": [
     {
       "id": "day-nhay-phu-kien",
+      "tab_id": "nhay-day",
       "name": "DÂY NHẢY VÀ PHỤ KIỆN"
     },
     {
-      "id": "group-1787898229607",
-      "name": "ĐỒ CHO CON"
+      "id": "phu-kien-bo-tro",
+      "tab_id": "nhay-day",
+      "name": "PHỤ KIỆN BỔ TRỢ & SỨC KHỎE"
+    },
+    {
+      "id": "xa-don-phu-kien",
+      "tab_id": "keo-xa",
+      "name": "XÀ ĐƠN & DÂY KHÁNG LỰC TRỢ LỰC"
+    },
+    {
+      "id": "chong-day-dung-cu",
+      "tab_id": "chong-day",
+      "name": "DỤNG CỤ HÍT ĐẤT & BẢNG CHỐNG ĐẨY"
+    },
+    {
+      "id": "chay-bo-phu-kien",
+      "tab_id": "chay-bo",
+      "name": "GIÀY, TẤT & PHỤ KIỆN CHẠY BỘ"
     }
   ],
   "items": [
     {
-      "id": "prod-1787898065362",
-      "title": "Dây nhảy tốc độ TOPBODY EFFORT",
-      "image": "https://down-vn.img.susercontent.com/file/vn-11134207-820l4-mjozkekfryteea.webp",
-      "shopee_url": "https://s.shopee.vn/gPObrPyB4",
-      "category": "day-nhay-phu-kien"
-    },
-    {
-      "id": "prod-1787898031357",
-      "title": "Dây Nhảy Thể Lực Đếm Số",
-      "image": "https://down-vn.img.susercontent.com/file/vn-11134207-7ras8-m1tnxrb0qpn742.webp",
-      "shopee_url": "https://s.shopee.vn/5fo4Z94a1i",
-      "category": "day-nhay-phu-kien"
+      "id": "prod-1787896635633",
+      "title": "Thảm nhảy dây SPORTY YGW43",
+      "image": "https://down-vn.img.susercontent.com/file/5d1b118018339fb1dd6206e15bfe926f.webp",
+      "shopee_url": "https://s.shopee.vn/50YYz330Ku",
+      "category": "day-nhay-phu-kien",
+      "tab_id": "nhay-day"
     },
     {
       "id": "prod-1787897007152",
       "title": "Đai bảo vệ vòng 1 JUSTFIT",
       "image": "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mp4jolltb9xo4a.webp",
       "shopee_url": "https://s.shopee.vn/5q7fyePRJ5",
-      "category": "day-nhay-phu-kien"
+      "category": "day-nhay-phu-kien",
+      "tab_id": "nhay-day"
     },
     {
       "id": "prod-1787896635633",
@@ -43,28 +73,16 @@
       "title": "Bình nước nhựa Tritan",
       "image": "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mnmmnbhvtse8a0.webp",
       "shopee_url": "https://s.shopee.vn/7VFty9U36n",
-      "category": "day-nhay-phu-kien"
+      "category": "phu-kien-bo-tro",
+      "tab_id": "nhay-day"
     },
     {
       "id": "prod-1787897077351",
       "title": "Cân sức khỏe điện tử iScale SE",
       "image": "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mmhm4l34fsw255.webp",
       "shopee_url": "https://s.shopee.vn/AAGf983zVA",
-      "category": "day-nhay-phu-kien"
-    },
-    {
-      "id": "prod-1787898489761",
-      "title": "Dây Nhảy Cho Bé Điều Chỉnh Độ Dài SOVEXA",
-      "image": "https://down-vn.img.susercontent.com/file/vn-11134207-820l4-mivixfs17daaaf.webp",
-      "shopee_url": "https://s.shopee.vn/9V0q27G4h1",
-      "category": "group-1787898229607"
-    },
-    {
-      "id": "prod-1787898539125",
-      "title": "Tất Bé Trai Mùa Xuân Thu Hè",
-      "image": "https://down-vn.img.susercontent.com/file/sg-11134201-7rdw4-lz8o2lt45rcn56.webp",
-      "shopee_url": "https://s.shopee.vn/9ANzYAVmCs",
-      "category": "group-1787898229607"
+      "category": "phu-kien-bo-tro",
+      "tab_id": "nhay-day"
     }
   ]
 }
