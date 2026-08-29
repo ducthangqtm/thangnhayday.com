@@ -15,6 +15,10 @@
     {
       "id": "chay-bo",
       "name": "Chạy Bộ"
+    },
+    {
+      "id": "tab-1787967110379",
+      "name": "Công Cụ"
     }
   ],
   "categories": [
@@ -172,6 +176,14 @@
       "category": "chay-bo-phu-kien",
       "image": "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mm0149zhoc1u19.webp",
       "shopee_url": "https://s.shopee.vn/4LIvPtSBbz"
+    },
+    {
+      "id": "prod-1787967257853",
+      "title": "TNW T26 Chân tripod mini",
+      "tab_id": "tab-1787967110379",
+      "category": "tab-1787967110379",
+      "image": "https://down-vn.img.susercontent.com/file/vn-11134207-820l4-mjqsda91yqkk84.webp",
+      "shopee_url": "https://s.shopee.vn/7fZNlMuE3Q"
     }
   ]
 }
