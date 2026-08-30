@@ -50,7 +50,7 @@
     {
       "id": "cat-1787967290472",
       "tab_id": "tab-1787967110379",
-      "name": "Tripod - Gậy Tự Sướng"
+      "name": "Đồ Phụ Phục Vụ"
     }
   ],
   "items": [
@@ -89,16 +89,16 @@
     {
       "id": "prod-1787902260766",
       "title": "Bình nước nhựa Tritan",
-      "tab_id": "nhay-day",
-      "category": "day-nhay-phu-kien",
+      "tab_id": "tab-1787967110379",
+      "category": "cat-1787967290472",
       "image": "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mnmmnbhvtse8a0.webp",
       "shopee_url": "https://s.shopee.vn/7VFty9U36n"
     },
     {
       "id": "prod-1787902272969",
       "title": "Cân sức khỏe điện tử iScale SE",
-      "tab_id": "nhay-day",
-      "category": "day-nhay-phu-kien",
+      "tab_id": "tab-1787967110379",
+      "category": "cat-1787967290472",
       "image": "https://down-vn.img.susercontent.com/file/vn-11134207-81ztc-mmhm4l34fsw255.webp",
       "shopee_url": "https://s.shopee.vn/AAGf983zVA"
     },
@@ -109,14 +109,6 @@
       "category": "do-cho-con",
       "image": "https://down-vn.img.susercontent.com/file/vn-11134207-820l4-mivixfs17daaaf.webp",
       "shopee_url": "https://s.shopee.vn/9V0q27G4h1"
-    },
-    {
-      "id": "prod-1787902336743",
-      "title": "Tất Bé Trai Mùa Xuân Thu Hè",
-      "tab_id": "nhay-day",
-      "category": "do-cho-con",
-      "image": "https://down-vn.img.susercontent.com/file/sg-11134201-7rdw4-lz8o2lt45rcn56.webp",
-      "shopee_url": "https://s.shopee.vn/9ANzYAVmCs"
     },
     {
       "id": "prod-1787908257180",
