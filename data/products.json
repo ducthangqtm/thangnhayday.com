@@ -43,11 +43,6 @@
       "name": "GIÀY, TẤT & PHỤ KIỆN CHẠY BỘ"
     },
     {
-      "id": "do-cho-con",
-      "tab_id": "nhay-day",
-      "name": "ĐỒ CHO CON"
-    },
-    {
       "id": "cat-1787967290472",
       "tab_id": "tab-1787967110379",
       "name": "Đồ Phụ Phục Vụ"
@@ -106,7 +101,7 @@
       "id": "prod-1787902321180",
       "title": "Dây Nhảy Cho Bé Điều Chỉnh Độ Dài",
       "tab_id": "nhay-day",
-      "category": "do-cho-con",
+      "category": "day-nhay-phu-kien",
       "image": "https://down-vn.img.susercontent.com/file/vn-11134207-820l4-mivixfs17daaaf.webp",
       "shopee_url": "https://s.shopee.vn/9V0q27G4h1"
     },
