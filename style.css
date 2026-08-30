@@ -846,74 +846,80 @@ body {
   overflow: hidden;
 }
 
-/* Nút MUA NGAY màu cam chuẩn như ảnh mẫu */
+/* Nút Tiếp thị Shopee / TikTok */
 .btn-buy-now {
   width: 100%;
-  padding: 10px 6px;
-  background: linear-gradient(135deg, #e67e22, #f39c12);
+  padding: 9px 6px;
+  background: linear-gradient(135deg, #ee4d2d, #ff5722);
   color: #ffffff;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
   border-radius: 10px;
   text-transform: uppercase;
+  letter-spacing: 0.02em;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
   text-decoration: none;
-  box-shadow: 0 3px 12px rgba(230, 126, 34, 0.35);
+  box-shadow: 0 3px 12px rgba(238, 77, 45, 0.35);
   transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
 }
 
 .btn-buy-now:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.08);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(230, 126, 34, 0.5);
+  box-shadow: 0 6px 16px rgba(238, 77, 45, 0.5);
 }
 
 .btn-buy-now:active {
   transform: scale(0.96);
 }
 
-.btn-buy-now i {
-  font-size: 0.88rem;
-}
-
-.btn-cta:active {
-  transform: scale(0.96);
+.btn-buy-now i,
+.btn-buy-now .btn-shop-icon {
+  font-size: 0.95rem;
+  flex-shrink: 0;
 }
 
 .btn-shopee {
-  background: linear-gradient(135deg, var(--shopee-from), var(--shopee-to));
+  background: linear-gradient(135deg, #ee4d2d, #ff5722);
   color: #ffffff;
   border: none;
-  box-shadow: 0 4px 14px var(--shopee-shadow);
+  box-shadow: 0 4px 14px rgba(238, 77, 45, 0.35);
 }
 
 .btn-shopee:hover {
   filter: brightness(1.08);
-  box-shadow: 0 6px 18px var(--shopee-shadow);
-  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(238, 77, 45, 0.5);
 }
 
 .btn-tiktok {
-  background: var(--tiktok-bg);
+  background: #0f141c;
   color: #ffffff;
-  border: 1px solid var(--tiktok-border);
-  box-shadow: var(--shadow-sm);
-  position: relative;
-  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
 }
 
 .btn-tiktok:hover {
   background: #000000;
   border-color: #00f2fe;
-  box-shadow: 0 4px 16px rgba(0, 242, 254, 0.25);
-  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 242, 254, 0.3);
+  transform: translateY(-2px);
 }
 
-.btn-icon {
-  flex-shrink: 0;
+.card-btn-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  width: 100%;
+}
+
+.card-btn-group .btn-buy-now {
+  padding: 8px 4px;
+  font-size: 0.72rem;
+  gap: 4px;
 }
 
 /* Empty state */

@@ -237,7 +237,41 @@ function renderProducts() {
         <div class="products-grid">
           ${catProducts.map((product, index) => {
             const imgSrc = product.image || 'images/avatar.jpg';
-            const targetUrl = product.shopee_url || product.tiktok_url || 'https://shopee.vn';
+            const hasShopee = Boolean(product.shopee_url);
+            const hasTiktok = Boolean(product.tiktok_url);
+            const shopeeIconSvg = `<svg class="btn-shop-icon" viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="flex-shrink:0;"><path d="M19.5 7.5h-2.25V6.25A4.25 4.25 0 0 0 13 2h-2a4.25 4.25 0 0 0-4.25 4.25V7.5H4.5A1.5 1.5 0 0 0 3 9l1.45 11.6A2.5 2.5 0 0 0 6.93 23h10.14a2.5 2.5 0 0 0 2.48-2.4L21 9a1.5 1.5 0 0 0-1.5-1.5zM8.75 6.25A2.25 2.25 0 0 1 11 4h2a2.25 2.25 0 0 1 2.25 2.25V7.5H8.75V6.25zm4.8 9.5c0 1.25-.9 1.95-2.25 1.95a2.7 2.7 0 0 1-1.9-.7l.65-1.05c.35.3.8.55 1.25.55.6 0 .95-.3.95-.75 0-1.25-2.75-.8-2.75-2.6 0-1.2.9-1.9 2.1-1.9.65 0 1.3.2 1.75.55l-.6 1.05a2 2 0 0 0-1.15-.4c-.55 0-.8.25-.8.65 0 1.15 2.8.7 2.8 2.7z"/></svg>`;
+
+            let actionBtnHtml = '';
+            if (hasShopee && hasTiktok) {
+              actionBtnHtml = `
+                <div class="card-btn-group">
+                  <a href="${escapeHtml(product.shopee_url)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-buy-now btn-shopee" title="Xem trên Shopee">
+                    ${shopeeIconSvg}
+                    <span>Shopee</span>
+                  </a>
+                  <a href="${escapeHtml(product.tiktok_url)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-buy-now btn-tiktok" title="Xem trên TikTok Shop">
+                    <i class="fa-brands fa-tiktok"></i>
+                    <span>TikTok</span>
+                  </a>
+                </div>
+              `;
+            } else if (hasTiktok && !hasShopee) {
+              actionBtnHtml = `
+                <a href="${escapeHtml(product.tiktok_url)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-buy-now btn-tiktok" title="Xem ${escapeHtml(product.title)} trên TikTok Shop">
+                  <i class="fa-brands fa-tiktok"></i>
+                  <span>XEM GIÁ ƯU ĐÃI</span>
+                </a>
+              `;
+            } else {
+              const targetUrl = product.shopee_url || 'https://shopee.vn';
+              actionBtnHtml = `
+                <a href="${escapeHtml(targetUrl)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-buy-now btn-shopee" title="Xem ${escapeHtml(product.title)} trên Shopee">
+                  ${shopeeIconSvg}
+                  <span>XEM GIÁ ƯU ĐÃI</span>
+                </a>
+              `;
+            }
+
             return `
               <article class="product-card" style="animation-delay: ${index * 0.06}s">
                 <div class="card-media">
@@ -252,10 +286,7 @@ function renderProducts() {
                 </div>
                 <div class="card-body">
                   <h3 class="product-name">${escapeHtml(product.title)}</h3>
-                  <a href="${escapeHtml(targetUrl)}" target="_blank" rel="noopener noreferrer sponsored" class="btn-buy-now" title="Mua ${escapeHtml(product.title)}">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span>MUA NGAY</span>
-                  </a>
+                  ${actionBtnHtml}
                 </div>
               </article>
             `;
