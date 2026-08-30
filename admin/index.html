@@ -744,8 +744,13 @@
       </div>
 
       <div class="form-group">
-        <label class="form-label">Link Mua Ngay Shopee / Tiếp thị (*)</label>
+        <label class="form-label"><i class="fa-solid fa-bag-shopping" style="color: #ee4d2d;"></i> Link Shopee (*)</label>
         <input type="text" id="prod-url" class="input-field" placeholder="https://s.shopee.vn/..." required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label"><i class="fa-brands fa-tiktok"></i> Link TikTok Shop <span style="font-size: 0.75rem; color: var(--text-sub);">(Tùy chọn)</span></label>
+        <input type="text" id="prod-tiktok-url" class="input-field" placeholder="https://vt.tiktok.com/... hoặc https://www.tiktok.com/@...">
       </div>
 
       <button type="button" class="btn-primary" onclick="saveProductForm()">
@@ -965,9 +970,21 @@
                   <span class="badge-tab"><i class="fa-solid fa-tag"></i> ${escapeHtml(tabName)}</span>
                   <span class="badge-cat">| ${escapeHtml(catName)}</span>
                 </div>
-                <a href="${escapeHtml(p.shopee_url || '#')}" target="_blank" class="item-link" title="${escapeHtml(p.shopee_url)}">
-                  <i class="fa-solid fa-link"></i> ${escapeHtml(p.shopee_url || 'Chưa có link')}
-                </a>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 5px;">
+                  ${p.shopee_url ? `
+                    <a href="${escapeHtml(p.shopee_url)}" target="_blank" class="item-link" title="${escapeHtml(p.shopee_url)}" style="font-size: 0.76rem;">
+                      <i class="fa-solid fa-bag-shopping" style="color: #ee4d2d;"></i> Shopee
+                    </a>
+                  ` : ''}
+                  ${p.tiktok_url ? `
+                    <a href="${escapeHtml(p.tiktok_url)}" target="_blank" class="item-link" title="${escapeHtml(p.tiktok_url)}" style="font-size: 0.76rem;">
+                      <i class="fa-brands fa-tiktok"></i> TikTok
+                    </a>
+                  ` : ''}
+                  ${!p.shopee_url && !p.tiktok_url ? `
+                    <span class="item-link" style="color: var(--text-sub); font-size: 0.76rem;">Chưa có link</span>
+                  ` : ''}
+                </div>
               </div>
             </div>
             <div class="item-actions">
@@ -1075,6 +1092,7 @@
       document.getElementById('prod-title').value = '';
       document.getElementById('prod-image').value = '';
       document.getElementById('prod-url').value = '';
+      document.getElementById('prod-tiktok-url').value = '';
 
       populateTabSelect('prod-tab-select', currentTabs[0]?.id);
       filterCategorySelectByTab(currentTabs[0]?.id);
@@ -1090,6 +1108,7 @@
       document.getElementById('prod-title').value = p.title || '';
       document.getElementById('prod-image').value = p.image || '';
       document.getElementById('prod-url').value = p.shopee_url || '';
+      document.getElementById('prod-tiktok-url').value = p.tiktok_url || '';
 
       const tabId = p.tab_id || currentTabs[0]?.id;
       populateTabSelect('prod-tab-select', tabId);
@@ -1133,6 +1152,7 @@
       const category = document.getElementById('prod-category-select').value;
       const image = document.getElementById('prod-image').value.trim();
       const url = document.getElementById('prod-url').value.trim();
+      const tiktokUrl = document.getElementById('prod-tiktok-url').value.trim();
       const index = parseInt(document.getElementById('edit-prod-index').value);
 
       if (!title) {
@@ -1146,7 +1166,8 @@
         tab_id: tabId,
         category: category,
         image: image || 'images/avatar.jpg',
-        shopee_url: url || 'https://shopee.vn'
+        shopee_url: url || '',
+        tiktok_url: tiktokUrl || ''
       };
 
       if (index >= 0) {
