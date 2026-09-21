@@ -208,61 +208,166 @@
         <span class="total-plays-icon">🔥</span>
       </div>
 
-      <!-- 1. CỤM TRÒ CHƠI ARCADE HUB (MINIMALIST FLAT UI) -->
-      <section>
-        <!-- Khối Lưới 4 Game (Grid 2x2) -->
-        <div id="gameGrid" class="game-grid-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 0;">
-          <!-- Ô 1: Thắng Nhảy Dây -->
-          <div class="game-grid-card p-2.5 sm:p-3 flex flex-col justify-between cursor-pointer active-game-card" data-game-id="jump">
-            <div>
-              <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 mb-2" style="aspect-ratio: 4 / 3;">
-                <img src="/assets/thang-rope-thumb.jpg" alt="Thắng Nhảy Dây" class="w-full h-full object-cover pointer-events-none" loading="eager" />
+      <!-- 1. CỤM TRÒ CHƠI ARCADE HUB (CAROUSEL TRƯỢT VÒNG TRÒN) -->
+      <section class="relative select-none">
+        <div class="relative flex items-center">
+          <!-- Nút điều hướng [<] -->
+          <button id="carouselPrevBtn" class="carousel-nav-btn absolute -left-1 sm:-left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-950/90 hover:bg-slate-900 text-cyan-400 border border-cyan-500/50 flex items-center justify-center shadow-[0_0_12px_rgba(6,182,212,0.4)] transition active:scale-90" aria-label="Game trước">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+
+          <!-- Khung cuộn Game Carousel (Scroll Snap & Clone Vòng Tròn) -->
+          <div id="gameCarousel" class="carousel-container w-full flex items-stretch gap-3 py-2.5 overflow-x-auto select-none" style="scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none;">
+            <!-- THẺ CLONE 0: 2048 NEON (Clone của Thẻ 5 để cuộn lùi vô tận) -->
+            <div class="game-card flex flex-col justify-between cursor-pointer p-3 rounded-2xl" data-game-id="2048" data-is-clone="true">
+              <div>
+                <div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-slate-950 mb-2">
+                  <img src="/assets/neon-2048-thumb.jpg" alt="2048 Neon" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
+                </div>
+                <h3 class="text-xs sm:text-[13px] font-bold text-white truncate tracking-wide">2048 Neon</h3>
               </div>
-              <h3 class="text-xs sm:text-[13px] font-bold text-white truncate tracking-wide">Thắng Nhảy Dây</h3>
+              <button class="launch-game-btn mt-2.5 w-full btn-neon py-2 text-[11px] font-bold rounded-lg" data-game-id="2048">
+                Chơi Ngay ▶
+              </button>
             </div>
-            <button class="launch-game-btn mt-2.5 w-full btn-neon py-2 text-[11px] font-bold rounded-lg" data-game-id="jump">
-              Chơi Ngay ▶
-            </button>
+
+            <!-- THẺ CLONE 1: XẾP HÌNH NEON (Clone của Thẻ 6 để cuộn lùi vô tận) -->
+            <div class="game-card flex flex-col justify-between cursor-pointer p-3 rounded-2xl" data-game-id="tetris" data-is-clone="true">
+              <div>
+                <div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-slate-950 mb-2">
+                  <img src="/assets/tetris-thumb.jpg" alt="Xếp Hình Neon" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
+                </div>
+                <h3 class="text-xs sm:text-[13px] font-bold text-white truncate tracking-wide">Xếp Hình Neon</h3>
+              </div>
+              <button class="launch-game-btn mt-2.5 w-full btn-neon py-2 text-[11px] font-bold rounded-lg" data-game-id="tetris">
+                Chơi Ngay ▶
+              </button>
+            </div>
+
+            <!-- THẺ 2 (GAME 1): THẮNG NHẢY DÂY (Mặc định) -->
+            <div class="game-card flex flex-col justify-between cursor-pointer p-3 rounded-2xl active-game-card" data-game-id="jump">
+              <div>
+                <div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-slate-950 mb-2">
+                  <img src="/assets/thang-rope-thumb.jpg" alt="Thắng Nhảy Dây" class="w-full h-full object-cover pointer-events-none" loading="eager" />
+                  <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded text-[8.5px] font-black bg-amber-500/90 text-slate-950 uppercase tracking-wider select-none shadow-[0_0_8px_rgba(245,158,11,0.6)]">HOT 🔥</span>
+                </div>
+                <h3 class="text-xs sm:text-[13px] font-bold text-white truncate tracking-wide">Thắng Nhảy Dây</h3>
+              </div>
+              <button class="launch-game-btn mt-2.5 w-full btn-neon py-2 text-[11px] font-bold rounded-lg" data-game-id="jump">
+                Chơi Ngay ▶
+              </button>
+            </div>
+
+            <!-- THẺ 3 (GAME 2): CHIẾN CƠ NEON (MỚI ✨) -->
+            <div class="game-card flex flex-col justify-between cursor-pointer p-3 rounded-2xl" data-game-id="space_shooter">
+              <div>
+                <div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-slate-950 mb-2">
+                  <img src="/assets/space-shooter-thumb.jpg" alt="Chiến Cơ Neon" class="w-full h-full object-cover pointer-events-none" loading="eager" />
+                  <span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded text-[8.5px] font-black bg-cyan-500/85 text-white border border-cyan-400/50 uppercase tracking-wider select-none shadow-[0_0_8px_rgba(6,182,212,0.6)]">MỚI ✨</span>
+                </div>
+                <h3 class="text-xs sm:text-[13px] font-bold text-white truncate tracking-wide">Chiến Cơ Neon</h3>
+              </div>
+              <button class="launch-game-btn mt-2.5 w-full btn-neon py-2 text-[11px] font-bold rounded-lg" data-game-id="space_shooter">
+                Chơi Ngay ▶
+              </button>
+            </div>
+
+            <!-- THẺ 4 (GAME 3): ĐUA XE NEON (MỚI 🔥) -->
+            <div class="game-card flex flex-col justify-between cursor-pointer p-3 rounded-2xl" data-game-id="racer">
+              <div>
+                <div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-slate-950 mb-2">
+                  <img src="/assets/cyber-racer-thumb.jpg" alt="Đua Xe Neon" class="w-full h-full object-cover pointer-events-none" loading="eager" />
+                  <span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded text-[8.5px] font-black bg-pink-500/85 text-white border border-pink-400/50 uppercase tracking-wider select-none shadow-[0_0_8px_rgba(236,72,153,0.6)]">MỚI 🔥</span>
+                </div>
+                <h3 class="text-xs sm:text-[13px] font-bold text-white truncate tracking-wide">Đua Xe Neon</h3>
+              </div>
+              <button class="launch-game-btn mt-2.5 w-full btn-neon py-2 text-[11px] font-bold rounded-lg" data-game-id="racer">
+                Chơi Ngay ▶
+              </button>
+            </div>
+
+            <!-- THẺ 5 (GAME 4): CYBER SNAKE -->
+            <div class="game-card flex flex-col justify-between cursor-pointer p-3 rounded-2xl" data-game-id="snake">
+              <div>
+                <div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-slate-950 mb-2">
+                  <img src="/assets/cyber-snake-thumb.jpg" alt="Cyber Snake" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
+                </div>
+                <h3 class="text-xs sm:text-[13px] font-bold text-white truncate tracking-wide">Cyber Snake</h3>
+              </div>
+              <button class="launch-game-btn mt-2.5 w-full btn-neon py-2 text-[11px] font-bold rounded-lg" data-game-id="snake">
+                Chơi Ngay ▶
+              </button>
+            </div>
+
+            <!-- THẺ 6 (GAME 5): 2048 NEON -->
+            <div class="game-card flex flex-col justify-between cursor-pointer p-3 rounded-2xl" data-game-id="2048">
+              <div>
+                <div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-slate-950 mb-2">
+                  <img src="/assets/neon-2048-thumb.jpg" alt="2048 Neon" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
+                </div>
+                <h3 class="text-xs sm:text-[13px] font-bold text-white truncate tracking-wide">2048 Neon</h3>
+              </div>
+              <button class="launch-game-btn mt-2.5 w-full btn-neon py-2 text-[11px] font-bold rounded-lg" data-game-id="2048">
+                Chơi Ngay ▶
+              </button>
+            </div>
+
+            <!-- THẺ 7 (GAME 6): XẾP HÌNH NEON -->
+            <div class="game-card flex flex-col justify-between cursor-pointer p-3 rounded-2xl" data-game-id="tetris">
+              <div>
+                <div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-slate-950 mb-2">
+                  <img src="/assets/tetris-thumb.jpg" alt="Xếp Hình Neon" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
+                </div>
+                <h3 class="text-xs sm:text-[13px] font-bold text-white truncate tracking-wide">Xếp Hình Neon</h3>
+              </div>
+              <button class="launch-game-btn mt-2.5 w-full btn-neon py-2 text-[11px] font-bold rounded-lg" data-game-id="tetris">
+                Chơi Ngay ▶
+              </button>
+            </div>
+
+            <!-- THẺ CLONE 8: THẮNG NHẢY DÂY (Clone của Thẻ 2 để cuộn tiến vô tận) -->
+            <div class="game-card flex flex-col justify-between cursor-pointer p-3 rounded-2xl" data-game-id="jump" data-is-clone="true">
+              <div>
+                <div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-slate-950 mb-2">
+                  <img src="/assets/thang-rope-thumb.jpg" alt="Thắng Nhảy Dây" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
+                  <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded text-[8.5px] font-black bg-amber-500/90 text-slate-950 uppercase tracking-wider select-none shadow-[0_0_8px_rgba(245,158,11,0.6)]">HOT 🔥</span>
+                </div>
+                <h3 class="text-xs sm:text-[13px] font-bold text-white truncate tracking-wide">Thắng Nhảy Dây</h3>
+              </div>
+              <button class="launch-game-btn mt-2.5 w-full btn-neon py-2 text-[11px] font-bold rounded-lg" data-game-id="jump">
+                Chơi Ngay ▶
+              </button>
+            </div>
+
+            <!-- THẺ CLONE 9: CHIẾN CƠ NEON (Clone của Thẻ 3 để cuộn tiến vô tận) -->
+            <div class="game-card flex flex-col justify-between cursor-pointer p-3 rounded-2xl" data-game-id="space_shooter" data-is-clone="true">
+              <div>
+                <div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden bg-slate-950 mb-2">
+                  <img src="/assets/space-shooter-thumb.jpg" alt="Chiến Cơ Neon" class="w-full h-full object-cover pointer-events-none" loading="lazy" />
+                  <span class="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded text-[8.5px] font-black bg-cyan-500/85 text-white border border-cyan-400/50 uppercase tracking-wider select-none shadow-[0_0_8px_rgba(6,182,212,0.6)]">MỚI ✨</span>
+                </div>
+                <h3 class="text-xs sm:text-[13px] font-bold text-white truncate tracking-wide">Chiến Cơ Neon</h3>
+              </div>
+              <button class="launch-game-btn mt-2.5 w-full btn-neon py-2 text-[11px] font-bold rounded-lg" data-game-id="space_shooter">
+                Chơi Ngay ▶
+              </button>
+            </div>
           </div>
 
-          <!-- Ô 2: Cyber Snake -->
-          <div class="game-grid-card p-2.5 sm:p-3 flex flex-col justify-between cursor-pointer" data-game-id="snake">
-            <div>
-              <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 mb-2" style="aspect-ratio: 4 / 3;">
-                <img src="/assets/cyber-snake-thumb.jpg" alt="Cyber Snake" class="w-full h-full object-cover pointer-events-none" loading="eager" />
-              </div>
-              <h3 class="text-xs sm:text-[13px] font-bold text-white truncate tracking-wide">Cyber Snake</h3>
-            </div>
-            <button class="launch-game-btn mt-2.5 w-full btn-neon py-2 text-[11px] font-bold rounded-lg" data-game-id="snake">
-              Chơi Ngay ▶
-            </button>
-          </div>
+          <!-- Nút điều hướng [>] -->
+          <button id="carouselNextBtn" class="carousel-nav-btn absolute -right-1 sm:-right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-950/90 hover:bg-slate-900 text-cyan-400 border border-cyan-500/50 flex items-center justify-center shadow-[0_0_12px_rgba(6,182,212,0.4)] transition active:scale-90" aria-label="Game tiếp theo">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
 
-          <!-- Ô 3: 2048 Neon -->
-          <div class="game-grid-card p-2.5 sm:p-3 flex flex-col justify-between cursor-pointer" data-game-id="2048">
-            <div>
-              <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 mb-2" style="aspect-ratio: 4 / 3;">
-                <img src="/assets/neon-2048-thumb.jpg" alt="2048 Neon" class="w-full h-full object-cover pointer-events-none" loading="eager" />
-              </div>
-              <h3 class="text-xs sm:text-[13px] font-bold text-white truncate tracking-wide">2048 Neon</h3>
-            </div>
-            <button class="launch-game-btn mt-2.5 w-full btn-neon py-2 text-[11px] font-bold rounded-lg" data-game-id="2048">
-              Chơi Ngay ▶
-            </button>
-          </div>
-
-          <!-- Ô 4: Xếp Hình Neon -->
-          <div class="game-grid-card p-2.5 sm:p-3 flex flex-col justify-between cursor-pointer" data-game-id="tetris">
-            <div>
-              <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 mb-2" style="aspect-ratio: 4 / 3;">
-                <img src="/assets/tetris-thumb.jpg" alt="Xếp Hình Neon" class="w-full h-full object-cover pointer-events-none" loading="eager" />
-              </div>
-              <h3 class="text-xs sm:text-[13px] font-bold text-white truncate tracking-wide">Xếp Hình Neon</h3>
-            </div>
-            <button class="launch-game-btn mt-2.5 w-full btn-neon py-2 text-[11px] font-bold rounded-lg" data-game-id="tetris">
-              Chơi Ngay ▶
-            </button>
-          </div>
+        <!-- Chấm tròn Pagination Dots (6 Games) -->
+        <div id="carouselDots" class="flex items-center justify-center gap-1.5 pt-2 pb-0.5 select-none">
+          <button class="carousel-dot h-1.5 rounded-full transition-all bg-cyan-400 w-6" data-game-id="jump" data-index="1" aria-label="Thắng Nhảy Dây"></button>
+          <button class="carousel-dot h-1.5 rounded-full transition-all bg-slate-700 w-2 hover:bg-slate-600" data-game-id="space_shooter" data-index="2" aria-label="Chiến Cơ Neon"></button>
+          <button class="carousel-dot h-1.5 rounded-full transition-all bg-slate-700 w-2 hover:bg-slate-600" data-game-id="racer" data-index="3" aria-label="Đua Xe Neon"></button>
+          <button class="carousel-dot h-1.5 rounded-full transition-all bg-slate-700 w-2 hover:bg-slate-600" data-game-id="snake" data-index="4" aria-label="Cyber Snake"></button>
+          <button class="carousel-dot h-1.5 rounded-full transition-all bg-slate-700 w-2 hover:bg-slate-600" data-game-id="2048" data-index="5" aria-label="2048 Neon"></button>
+          <button class="carousel-dot h-1.5 rounded-full transition-all bg-slate-700 w-2 hover:bg-slate-600" data-game-id="tetris" data-index="6" aria-label="Xếp Hình Neon"></button>
         </div>
       </section>
 
@@ -338,8 +443,11 @@
 
       <!-- Cụm Nút bấm (Loa/Thoát) -->
       <div class="flex items-center gap-2 flex-shrink-0">
-        <button id="soundToggleBtn" class="w-[42px] h-[42px] min-w-[42px] min-h-[42px] sm:w-[44px] sm:h-[44px] sm:min-w-[44px] sm:min-h-[44px] rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 flex items-center justify-center text-[20px] sm:text-[22px] text-white transition active:scale-95 cursor-pointer touch-manipulation" title="Bật/Tắt âm thanh">
-          🔊
+        <button id="soundToggleBtn" class="w-[42px] h-[42px] min-w-[42px] min-h-[42px] sm:w-[44px] sm:h-[44px] sm:min-w-[44px] sm:min-h-[44px] rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 flex items-center justify-center text-white transition active:scale-95 cursor-pointer touch-manipulation" title="Bật/Tắt âm thanh" aria-label="Bật/Tắt âm thanh">
+          <!-- SVG: speaker-on (default) -->
+          <svg id="iconSoundOn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+          <!-- SVG: speaker-muted (hidden by default) -->
+          <svg id="iconSoundOff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="22" height="22" style="display:none"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
         </button>
         <button id="closeArcadeBtn" class="w-[42px] h-[42px] min-w-[42px] min-h-[42px] sm:w-[44px] sm:h-[44px] sm:min-w-[44px] sm:min-h-[44px] rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 flex items-center justify-center text-[20px] sm:text-[22px] text-white hover:text-rose-400 transition active:scale-95 cursor-pointer touch-manipulation" title="Đóng game">
           ✕

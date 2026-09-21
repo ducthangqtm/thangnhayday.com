@@ -867,6 +867,8 @@ export class TetrisGame extends BaseGame {
     this.ctx.shadowColor = glow;
     this.ctx.shadowBlur = 6;
     this.ctx.fillRect(x + 1, y + 1, size - 2, size - 2);
+    this.ctx.shadowBlur = 0;
+    this.ctx.shadowColor = 'transparent';
 
     // Bevel highlight
     this.ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
@@ -876,26 +878,44 @@ export class TetrisGame extends BaseGame {
   }
 
   loop(timestamp) {
-    if (this.state === 'PLAYING') {
-      if (timestamp - this.lastDropTime > this.dropInterval) {
-        if (this.isValidPosition(this.currentPiece, 0, 1)) {
-          this.currentPiece.y++;
-        } else {
-          this.lockPiece();
-        }
-        this.lastDropTime = timestamp;
+    if (this.state !== 'PLAYING') {
+      if (this.animationId) {
+        cancelAnimationFrame(this.animationId);
+        this.animationId = null;
       }
+      return;
+    }
+
+    if (timestamp - this.lastDropTime > this.dropInterval) {
+      if (this.isValidPosition(this.currentPiece, 0, 1)) {
+        this.currentPiece.y++;
+      } else {
+        this.lockPiece();
+      }
+      this.lastDropTime = timestamp;
     }
 
     this.draw();
 
-    if (this.state === 'PLAYING' || this.state === 'GAMEOVER') {
+    if (this.state === 'PLAYING') {
       this.animationId = requestAnimationFrame(this.loop);
+    } else {
+      this.animationId = null;
     }
   }
 
   destroy() {
     super.destroy();
+    this.grid = [];
+    this.bag = [];
+    this.currentPiece = null;
+    this.nextPiece = null;
+    this.clearingRows = [];
+    this.particles = [];
+    if (this.ctx) {
+      this.ctx.shadowBlur = 0;
+      this.ctx.shadowColor = 'transparent';
+    }
     if (this.canvas) {
       this.canvas.style.borderBottomLeftRadius = '';
       if (this.canvas.parentElement) {

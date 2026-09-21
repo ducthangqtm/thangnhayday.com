@@ -47,6 +47,14 @@ export class BaseGame {
 
   triggerGameOver(finalScore) {
     this.state = 'GAMEOVER';
+    if (this.animationId) {
+      cancelAnimationFrame(this.animationId);
+      this.animationId = null;
+    }
+    if (this.ctx) {
+      this.ctx.shadowBlur = 0;
+      this.ctx.shadowColor = 'transparent';
+    }
     if (this.onGameOverCallback) {
       this.onGameOverCallback(finalScore);
     }
@@ -168,6 +176,8 @@ export class BaseGame {
     this.eventListeners = [];
 
     if (this.ctx && this.canvas) {
+      this.ctx.shadowBlur = 0;
+      this.ctx.shadowColor = 'transparent';
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
   }

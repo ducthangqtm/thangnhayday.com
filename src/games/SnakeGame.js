@@ -256,6 +256,8 @@ export class SnakeGame extends BaseGame {
     this.ctx.beginPath();
     this.ctx.arc(this.food.x * gs + gs / 2, this.food.y * gs + gs / 2, Math.max(4, gs / 2 - 2), 0, Math.PI * 2);
     this.ctx.fill();
+    this.ctx.shadowBlur = 0;
+    this.ctx.shadowColor = 'transparent';
     this.ctx.restore();
 
     // Snake
@@ -266,6 +268,9 @@ export class SnakeGame extends BaseGame {
       if (isHead) {
         this.ctx.shadowColor = '#39ff14';
         this.ctx.shadowBlur = 12;
+      } else {
+        this.ctx.shadowBlur = 0;
+        this.ctx.shadowColor = 'transparent';
       }
       this.ctx.beginPath();
       const cornerRadius = isHead ? Math.max(5, Math.round(gs * 0.24)) : Math.max(3, Math.round(gs * 0.15));
@@ -275,6 +280,8 @@ export class SnakeGame extends BaseGame {
         this.ctx.rect(seg.x * gs + 1, seg.y * gs + 1, gs - 2, gs - 2);
       }
       this.ctx.fill();
+      this.ctx.shadowBlur = 0;
+      this.ctx.shadowColor = 'transparent';
 
       if (isHead) {
         this.ctx.fillStyle = '#000000';
@@ -289,6 +296,8 @@ export class SnakeGame extends BaseGame {
 
     // Overlays
     if (this.state === 'IDLE' || this.state === 'START') {
+      this.ctx.shadowBlur = 0;
+      this.ctx.shadowColor = 'transparent';
       this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
       this.ctx.fillRect(0, 0, w, h);
       this.ctx.fillStyle = '#39ff14';
@@ -299,22 +308,42 @@ export class SnakeGame extends BaseGame {
       this.ctx.font = '13px sans-serif';
       this.ctx.fillText('Vuốt hoặc dùng phím / D-Pad để chơi', w / 2, h / 2 + 15);
     } else if (this.state === 'GAMEOVER') {
+      this.ctx.shadowBlur = 0;
+      this.ctx.shadowColor = 'transparent';
       this.ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
       this.ctx.fillRect(0, 0, w, h);
     }
   }
 
   loop(timestamp) {
-    if (this.state === 'PLAYING') {
-      if (timestamp - this.lastTick > this.speed) {
-        this.update();
-        this.lastTick = timestamp;
+    if (this.state !== 'PLAYING') {
+      if (this.animationId) {
+        cancelAnimationFrame(this.animationId);
+        this.animationId = null;
       }
+      return;
+    }
+
+    if (timestamp - this.lastTick > this.speed) {
+      this.update();
+      this.lastTick = timestamp;
     }
     this.draw();
 
-    if (this.state === 'PLAYING' || this.state === 'GAMEOVER') {
+    if (this.state === 'PLAYING') {
       this.animationId = requestAnimationFrame(this.loop);
+    } else {
+      this.animationId = null;
+    }
+  }
+
+  destroy() {
+    super.destroy();
+    this.snake = [];
+    this.food = { x: 0, y: 0 };
+    if (this.ctx) {
+      this.ctx.shadowBlur = 0;
+      this.ctx.shadowColor = 'transparent';
     }
   }
 }

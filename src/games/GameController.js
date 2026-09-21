@@ -3,6 +3,8 @@ import { JumpGame } from './JumpGame.js';
 import { SnakeGame } from './SnakeGame.js';
 import { Game2048 } from './Game2048.js';
 import { TetrisGame } from './TetrisGame.js';
+import { SpaceShooterGame } from './SpaceShooterGame.js';
+import { RacerGame } from './RacerGame.js';
 
 export class GameController {
   constructor(canvasElement, options = {}) {
@@ -19,7 +21,9 @@ export class GameController {
       jump: JumpGame,
       snake: SnakeGame,
       2048: Game2048,
-      tetris: TetrisGame
+      tetris: TetrisGame,
+      space_shooter: SpaceShooterGame,
+      racer: RacerGame
     };
   }
 
@@ -90,8 +94,8 @@ export class GameController {
     if (!this.controlsContainer) return;
     this.controlsContainer.innerHTML = '';
 
-    if (gameId === 'jump') {
-      // Game Thắng Nhảy Dây: Toàn bộ màn hình là vùng chạm, ẩn hoàn toàn container nút bấm dưới đáy
+    if (gameId === 'jump' || gameId === 'space_shooter' || gameId === 'racer') {
+      // Game Thắng Nhảy Dây, Chiến Cơ Neon & Đua Xe Neon: Toàn bộ màn hình Canvas là vùng chạm vuốt, ẩn hoàn toàn container nút bấm dưới đáy
       this.controlsContainer.style.display = 'none';
       return;
     } else {
@@ -196,7 +200,6 @@ export class GameController {
       bindAction('#tetrisLeft', () => this.currentGame.move(-1));
       bindAction('#tetrisRight', () => this.currentGame.move(1));
       bindAction('#tetrisRotateBtn', () => this.currentGame.rotate());
-      bindAction('#tetrisDropBtn', () => this.currentGame.hardDrop());
     }
   }
 

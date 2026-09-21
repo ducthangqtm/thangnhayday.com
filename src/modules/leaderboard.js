@@ -40,6 +40,16 @@ export class LeaderboardManager {
           { rank: 1, player_name: "TetrisPro", display_name: "TetrisPro", score: 7100, created_at: "2026-09-08" },
           { rank: 2, player_name: "BlockKing", display_name: "BlockKing", score: 6800, created_at: "2026-09-09" },
           { rank: 3, player_name: "Thắng Nhảy Dây", display_name: "Thắng Nhảy Dây", score: 5200, created_at: "2026-09-10" }
+        ],
+        space_shooter: [
+          { rank: 1, player_name: "AcePilot_VN", display_name: "AcePilot_VN", score: 1250, created_at: "2026-09-18" },
+          { rank: 2, player_name: "Thắng Nhảy Dây", display_name: "Thắng Nhảy Dây", score: 980, created_at: "2026-09-19" },
+          { rank: 3, player_name: "NeonViper", display_name: "NeonViper", score: 720, created_at: "2026-09-20" }
+        ],
+        racer: [
+          { rank: 1, player_name: "OutrunKing", display_name: "OutrunKing", score: 1680, created_at: "2026-09-18" },
+          { rank: 2, player_name: "Thắng Nhảy Dây", display_name: "Thắng Nhảy Dây", score: 1240, created_at: "2026-09-19" },
+          { rank: 3, player_name: "SynthRacer", display_name: "SynthRacer", score: 950, created_at: "2026-09-20" }
         ]
       },
       alltime: {
@@ -59,6 +69,16 @@ export class LeaderboardManager {
         tetris: [
           { rank: 1, player_name: "BlockKing", display_name: "BlockKing", score: 8400, created_at: "2026-09-01" },
           { rank: 2, player_name: "TetrisPro", display_name: "TetrisPro", score: 7100, created_at: "2026-09-02" }
+        ],
+        space_shooter: [
+          { rank: 1, player_name: "AcePilot_VN", display_name: "AcePilot_VN", score: 2450, created_at: "2026-09-12" },
+          { rank: 2, player_name: "CosmicLegend", display_name: "CosmicLegend", score: 1890, created_at: "2026-09-14" },
+          { rank: 3, player_name: "Thắng Nhảy Dây", display_name: "Thắng Nhảy Dây", score: 1420, created_at: "2026-09-16" }
+        ],
+        racer: [
+          { rank: 1, player_name: "OutrunKing", display_name: "OutrunKing", score: 3200, created_at: "2026-09-12" },
+          { rank: 2, player_name: "SpeedDemon", display_name: "SpeedDemon", score: 2650, created_at: "2026-09-14" },
+          { rank: 3, player_name: "Thắng Nhảy Dây", display_name: "Thắng Nhảy Dây", score: 1980, created_at: "2026-09-16" }
         ]
       }
     };
@@ -187,11 +207,27 @@ export class LeaderboardManager {
       this.updateTabsUI(this.currentType);
     }
 
+    // Cập nhật tiêu đề bảng vàng tự động: 🏆 BẢNG VÀNG TOP 10: [TÊN GAME ĐANG CHỌN]
+    const gameTitles = {
+      jump: 'THẮNG NHẢY DÂY',
+      space_shooter: 'CHIẾN CƠ NEON',
+      racer: 'ĐUA XE NEON',
+      snake: 'CYBER SNAKE',
+      '2048': '2048 NEON',
+      tetris: 'XẾP HÌNH NEON'
+    };
+    const activeTitleEl = document.getElementById('activeGameTitle');
+    if (activeTitleEl) {
+      activeTitleEl.innerText = `BẢNG VÀNG TOP 10: ${gameTitles[gameId] || gameId.toUpperCase()}`;
+    }
+
     const cacheKey = `${gameId}_${effectiveType}`;
     const cachedData = leaderboardCache[cacheKey];
 
+    // TỐI ƯU BỘ NHỚ ĐỆM (In-memory Cache):
+    // Nếu điểm số của game đã được tải trước đó: Lấy ngay từ cache ra hiển thị tức thì (0ms trễ, không lag giật)
     if (!forceRefresh && cachedData) {
-      this.renderLeaderboard(cachedData);
+      this.renderLeaderboard(cachedData, true);
       return cachedData;
     }
 
@@ -212,7 +248,7 @@ export class LeaderboardManager {
         };
         leaderboardCache[cacheKey] = formattedData;
         this.cache.set(cacheKey, { data: formattedData, timestamp: Date.now() });
-        this.renderLeaderboard(formattedData);
+        this.renderLeaderboard(formattedData, true);
         return formattedData;
       }
       throw new Error('Dữ liệu không hợp lệ');
@@ -227,7 +263,7 @@ export class LeaderboardManager {
         top10: fallbackList
       };
       leaderboardCache[cacheKey] = fallbackData;
-      this.renderLeaderboard(fallbackData);
+      this.renderLeaderboard(fallbackData, true);
       return fallbackData;
     }
   }
@@ -240,6 +276,8 @@ export class LeaderboardManager {
   renderLoading() {
     const listEl = document.getElementById('leaderboardList');
     if (!listEl) return;
+    listEl.style.opacity = '0.5';
+    listEl.style.transition = 'opacity 0.15s ease';
     listEl.innerHTML = `
       <div class="flex flex-col items-center justify-center py-6 text-slate-400 gap-2">
         <div class="w-5 h-5 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
@@ -248,7 +286,7 @@ export class LeaderboardManager {
     `;
   }
 
-  renderLeaderboard(data) {
+  renderLeaderboard(data, animate = true) {
     const listEl = document.getElementById('leaderboardList');
     if (!listEl) return;
 
@@ -259,12 +297,13 @@ export class LeaderboardManager {
           Chưa có kỷ lục nào. Hãy là người đầu tiên ghi danh lên Bảng Vàng!
         </div>
       `;
+      listEl.style.opacity = '1';
       return;
     }
 
     const rankIcons = ['🥇', '🥈', '🥉'];
 
-    listEl.innerHTML = top10.map((item, idx) => {
+    const contentHtml = top10.map((item, idx) => {
       const rankBadge = idx < 3
         ? `<span class="text-lg leading-none shrink-0">${rankIcons[idx]}</span>`
         : `<span class="w-6 h-6 rounded-full bg-slate-800 border border-slate-700 text-slate-300 flex items-center justify-center text-xs font-bold font-mono shrink-0">${idx + 1}</span>`;
@@ -286,6 +325,22 @@ export class LeaderboardManager {
         </div>
       `;
     }).join('');
+
+    // Hiệu ứng chuyển mờ nhẹ (fade transition) cho bảng điểm
+    if (animate) {
+      listEl.style.opacity = '0';
+      listEl.style.transform = 'translateY(4px)';
+      listEl.style.transition = 'opacity 0.2s ease-out, transform 0.2s ease-out';
+      listEl.innerHTML = contentHtml;
+      requestAnimationFrame(() => {
+        listEl.style.opacity = '1';
+        listEl.style.transform = 'translateY(0)';
+      });
+    } else {
+      listEl.innerHTML = contentHtml;
+      listEl.style.opacity = '1';
+      listEl.style.transform = 'none';
+    }
   }
 
   escapeHTML(str) {

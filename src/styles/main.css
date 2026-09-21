@@ -964,3 +964,70 @@ body {
 .btn-game-home:active {
   transform: scale(0.95);
 }
+
+/* ================= GAME CAROUSEL TRƯỢT VÒNG TRÒN ================= */
+.carousel-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  cursor: grab;
+  padding: 8px 11%;
+}
+
+@media (min-width: 640px) {
+  .carousel-container {
+    padding: 8px 18%;
+  }
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-container.cursor-grabbing {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.game-card {
+  scroll-snap-align: center;
+  flex: 0 0 78%;
+  max-width: 290px;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(51, 65, 85, 0.7);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  opacity: 0.65;
+  transform: scale(0.94);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.game-card.active-game-card {
+  opacity: 1;
+  transform: scale(1.02);
+  border-color: rgba(6, 182, 212, 0.85);
+  box-shadow: 0 0 22px rgba(6, 182, 212, 0.35), 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.carousel-nav-btn {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-nav-btn:hover {
+  border-color: #00f3ff;
+  color: #00f3ff;
+  box-shadow: 0 0 16px rgba(0, 243, 255, 0.5);
+}
+
+.carousel-dot {
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}

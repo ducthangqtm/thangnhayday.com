@@ -600,6 +600,11 @@ export class JumpGame extends BaseGame {
     this.shake = 16;
     soundEngine.playTrip();
 
+    if (this.animationId) {
+      cancelAnimationFrame(this.animationId);
+      this.animationId = null;
+    }
+
     if (this.score > this.highScore) {
       this.highScore = this.score;
       localStorage.setItem('thang_high_score', this.highScore);
@@ -612,6 +617,8 @@ export class JumpGame extends BaseGame {
       highScore: this.highScore,
       subtitle: this.getTitle(this.score)
     });
+
+    this.draw();
 
     setTimeout(() => {
       this.canRestart = true;
@@ -1265,6 +1272,12 @@ export class JumpGame extends BaseGame {
   destroy() {
     this.removeStartOverlay();
     super.destroy();
+    this.particles = [];
+    this.floatingTexts = [];
+    if (this.ctx) {
+      this.ctx.shadowBlur = 0;
+      this.ctx.shadowColor = 'transparent';
+    }
     if (this.canvas) {
       this.canvas.style.touchAction = '';
       this.canvas.style.cursor = '';
@@ -1284,13 +1297,23 @@ export class JumpGame extends BaseGame {
   }
 
   loop(timestamp) {
-    if (this.state !== 'PLAYING' && this.state !== 'GAMEOVER' && this.state !== 'START') return;
+    if (this.state !== 'PLAYING' && this.state !== 'START') {
+      if (this.animationId) {
+        cancelAnimationFrame(this.animationId);
+        this.animationId = null;
+      }
+      return;
+    }
     const dt = (timestamp - this.lastTime) / 1000;
     this.lastTime = timestamp;
 
     this.update(dt);
     this.draw();
 
-    this.animationId = requestAnimationFrame(this.loop);
+    if (this.state === 'PLAYING' || this.state === 'START') {
+      this.animationId = requestAnimationFrame(this.loop);
+    } else {
+      this.animationId = null;
+    }
   }
 }

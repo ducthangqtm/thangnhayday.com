@@ -1,6 +1,6 @@
 import { soundEngine } from './games/SoundEngine.js';
 import { GameController } from './games/GameController.js';
-import { GameGridManager } from './modules/gameGrid.js';
+import { GameCarousel } from './modules/carousel.js';
 import { LeaderboardManager } from './modules/leaderboard.js';
 import { AffiliateManager } from './modules/affiliate.js';
 import { DonateModalManager } from './modules/donateModal.js';
@@ -23,8 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Game Titles mapping
   const gameTitles = {
     jump: 'THẮNG NHẢY DÂY',
+    space_shooter: 'CHIẾN CƠ NEON',
+    racer: 'ĐUA XE NEON',
     snake: 'CYBER SNAKE',
-    2048: '2048 NEON',
+    '2048': '2048 NEON',
     tetris: 'XẾP HÌNH NEON'
   };
 
@@ -59,8 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (tabContentProducts) tabContentProducts.classList.add('hidden');
 
       // 1. Thiết lập game mặc định khi mở tab: Thắng Nhảy Dây (jump)
-      if (gameGrid && gameGrid.resetToDefault) {
-        gameGrid.resetToDefault();
+      if (gameCarousel && gameCarousel.resetToDefault) {
+        gameCarousel.resetToDefault();
       }
     }
   };
@@ -75,22 +77,27 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. Quản lý Bảng Vàng Top 10
   const leaderboardManager = new LeaderboardManager();
 
-  // 2. Khởi tạo Lưới Tĩnh 4 Game (Grid 2x2)
-  const gameGridEl = document.getElementById('gameGrid');
+  // 2. Khởi tạo Game Carousel Trượt Vòng Tròn (Infinite Carousel)
+  const carouselEl = document.getElementById('gameCarousel');
   const activeTitleEl = document.getElementById('activeGameTitle');
 
-  const gameGrid = new GameGridManager(gameGridEl, {
+  const gameCarousel = new GameCarousel(carouselEl, {
+    prevBtn: document.getElementById('carouselPrevBtn'),
+    nextBtn: document.getElementById('carouselNextBtn'),
+    dotsContainer: document.getElementById('carouselDots'),
     onActiveGameChange: (activeGameId) => {
       if (activeTitleEl) {
         activeTitleEl.innerText = `BẢNG VÀNG TOP 10: ${gameTitles[activeGameId] || activeGameId.toUpperCase()}`;
       }
-      // Tự động tải Bảng Vàng của game được chọn ngay lập tức từ cache
+      // Tải và hiển thị danh sách Top 10 của đúng game đó (0ms từ cache nếu đã tải trước đó)
       leaderboardManager.fetchTop10(activeGameId);
     },
     onLaunchGame: (gameId) => {
       openGame(gameId);
     }
   });
+
+  window.gameCarousel = gameCarousel;
 
   // Tải Bảng Vàng ban đầu (game jump)
   leaderboardManager.fetchTop10('jump');
@@ -260,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btn) {
       const gid = btn.dataset.gameId;
       if (gid) {
-        if (gameGrid) gameGrid.setActiveGame(gid);
+        if (gameCarousel) gameCarousel.setActiveGame(gid);
         openGame(gid);
       }
     }
@@ -289,10 +296,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Nút bật/tắt âm thanh
   if (soundToggleBtn) {
-    soundToggleBtn.innerText = soundEngine.isMuted() ? '🔇' : '🔊';
+    const iconOn = document.getElementById('iconSoundOn');
+    const iconOff = document.getElementById('iconSoundOff');
+    const applySoundIcon = (isMuted) => {
+      if (iconOn) iconOn.style.display = isMuted ? 'none' : '';
+      if (iconOff) iconOff.style.display = isMuted ? '' : 'none';
+    };
+    applySoundIcon(soundEngine.isMuted());
     soundToggleBtn.addEventListener('click', () => {
       const isMuted = soundEngine.toggleMute();
-      soundToggleBtn.innerText = isMuted ? '🔇' : '🔊';
+      applySoundIcon(isMuted);
     });
   }
 

@@ -361,4 +361,13 @@ export class Game2048 extends BaseGame {
   loop() {
     this.draw();
   }
+
+  destroy() {
+    super.destroy();
+    this.grid = [];
+    if (this.ctx) {
+      this.ctx.shadowBlur = 0;
+      this.ctx.shadowColor = 'transparent';
+    }
+  }
 }
