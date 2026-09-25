@@ -114,4 +114,4 @@ Gồm 2 phân hệ độc lập:
   - Viền phát sáng: `border: 3px solid rgba(56, 189, 248, 0.85); box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);`.
   - Huy hiệu tích xanh (Verified badge): `24px x 24px`, căn chuẩn góc 4h30.
 - **Footer Chân Trang**:
-  - Nút code `>_ thangit.com` (`.footer-link`) và tác giả `Nguyễn Đức Thắng (Thắng iT) ↗` (`.author-link`) liên kết trực tiếp sang `https://thangit.com` (`target="_blank"`, `rel="noopener noreferrer"`).
+  - Nút `ducthangnguyen.com` (`.footer-link`) và tác giả `Nguyễn Đức Thắng ↗` (`.author-link`) liên kết trực tiếp sang `https://ducthangnguyen.com` (`target="_blank"`, `rel="noopener noreferrer"`).

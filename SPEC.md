@@ -47,6 +47,6 @@ Web App kết hợp Bio-Link Affiliate và Arcade Hub 4-in-1, chạy trên Cloud
 - Sử dụng ảnh `avatar.jpg` làm avatar chính (bo tròn, viền hiệu ứng neon nhẹ).
 - Tên hiển thị: "Thắng Nhảy Dây" (có icon tích xanh xác minh).
 - Username: @thangnhayday
-- Bio: "Chia sẻ hành trình 100 ngày nhảy dây giảm mỡ bụng, cải thiện vóc dáng & thể lực mỗi ngày. Khám phá kỹ thuật nhảy dây và đồ tập tại nhà chất lượng! 💪🔥"
+- Bio: "Kỷ luật tạo nên sự tự do • Kiên trì rèn luyện & đồ tập chất lượng cùng Thắng Nhảy Dây! 💪🔥"
 - Dãy nút icon mạng xã hội: Facebook, YouTube, TikTok, Telegram/Zalo.
 - Nút "Mời cà phê / Donate" (icon tách cà phê): Khi bấm vào sẽ mở một Modal pop-up hiển thị ảnh mã `qr-donate.jpg` để người theo dõi quét mã ủng hộ.
